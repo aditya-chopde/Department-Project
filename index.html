@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+<body>
+    <h2>Upload an Image</h2>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            const fileInput = document.getElementById("fileInput");
+            if (!fileInput.files.length) {
+                document.getElementById("message").textContent = "Please select an image file.";
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("file_image", file);
+
+            try {
+                const response = await fetch("http://localhost:3000/api/upload/images", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById("message").textContent = "Upload successful: " + result.file;
+                } else {
+                    document.getElementById("message").textContent = "Error: " + result.error;
+                }
+            } catch (error) {
+                document.getElementById("message").textContent = "Upload failed: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
