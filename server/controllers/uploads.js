@@ -1,4 +1,4 @@
-const { model } = require("mongoose");
+const TextData = require("../models/textData");
 
 async function submitImage(req, res) {
     try {
@@ -25,6 +25,21 @@ async function submitImage(req, res) {
     }
 }
 
+async function submitText(req, res){
+    try {
+        const {title, description} = req.body;
+        const createTextData = await TextData.create({
+            title: title,
+            description: description,
+        })
+
+        return res.json({success: true, message: "Text Data Added Successfully", textData: createTextData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Occurred", error: err.message});
+    }
+}
+
 module.exports = {
     submitImage,
+    submitText,
 }

@@ -3,7 +3,7 @@ const express = require("express")
 const cors = require("cors")
 const { connectDb } = require("./connectdb");
 const user = require("./routes/user");
-const images = require("./routes/images")
+const uploads = require("./routes/uploads")
 require('dotenv').config();
 const app = express()
 const PORT = 3000;
@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use("/api/user", user)
-app.use("/api/upload", images)
+app.use("/api/upload", uploads)
 app.use("/uploads", express.static("uploads"));
 
 connectDb("mongodb://localhost:27017/cm").then(() => {
