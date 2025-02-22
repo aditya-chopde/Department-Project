@@ -18,7 +18,7 @@ async function submitImage(req, res) {
             time: new Date()
         })
 
-        return res.json({ success: true, message: "File Uploaded Successfully" })
+        return res.json({ success: true, message: "File Uploaded Successfully", data: saveFile })
     } catch (err) {
         console.log(err.message)
         return res.json({ success: false, message: "Error occurred", error: err.message })
@@ -33,7 +33,7 @@ async function submitText(req, res){
             description: description,
         })
 
-        return res.json({success: true, message: "Text Data Added Successfully", textData: createTextData});
+        return res.json({success: true, message: "Text Data Added Successfully", data: createTextData});
     } catch (error) {
         return res.json({success: false, message: "Error Occurred", error: err.message});
     }
