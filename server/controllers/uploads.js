@@ -1,3 +1,4 @@
+const Image = require("../models/image");
 const TextData = require("../models/textData");
 
 async function submitImage(req, res) {
@@ -5,7 +6,7 @@ async function submitImage(req, res) {
         const { name, email, department, year, phone } = req.body;
         const { originalname, filename, size } = req.file;
         const path = `http://localhost:3000/uploads/${filename}`
-        const saveFile = await Poster.create({
+        const saveFile = await Image.create({
             name: name,
             email: email,
             department: department,
@@ -27,8 +28,14 @@ async function submitImage(req, res) {
 
 async function submitText(req, res){
     try {
+        const { name, email, department, year, phone } = req.body;
         const {title, description} = req.body;
         const createTextData = await TextData.create({
+            name: name,
+            email: email,
+            department: department,
+            year: year,
+            phone: phone,
             title: title,
             description: description,
         })
