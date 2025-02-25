@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 
 // Login Emails to Admin and User
-async function sendEmailAdminNewLogin(name, dept, phone, year){
+async function sendEmailAdminNewLogin(name, dept, phone, year) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -30,7 +30,7 @@ async function sendEmailAdminNewLogin(name, dept, phone, year){
     });
 }
 
-async function sendEmailUser(student_email){
+async function sendEmailUser(student_email) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -56,7 +56,7 @@ async function sendEmailUser(student_email){
 
 // Text Data Post Emails
 // Admin Email for new post request - TextData
-async function adminNewTextData(name, email, department, phone, title, description){
+async function adminNewTextData(name, email, department, phone, title, description) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -67,7 +67,7 @@ async function adminNewTextData(name, email, department, phone, title, descripti
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
+        to: email, // List of recipients
         subject: 'New Post Request', // Subject line
         html: `<h1>Got a new Post Request From: </h1>
         <p><b>Name</b>: ${name}</p>
@@ -88,7 +88,7 @@ async function adminNewTextData(name, email, department, phone, title, descripti
 }
 
 // User Email for Sending Post Request - TextData
-async function userNewTextData(name, email, department, phone, title, description){
+async function userNewTextData(name, email, department, phone, title, description) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -99,7 +99,7 @@ async function userNewTextData(name, email, department, phone, title, descriptio
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
+        to: email, // List of recipients
         subject: 'Yout Post Request is under review by the admin', // Subject line
         html: `<h1>You will get notified as it gets accepted!! </h1>
         <h3>Details: </h3>
@@ -120,7 +120,7 @@ async function userNewTextData(name, email, department, phone, title, descriptio
 }
 
 // Post Status Email to user
-async function userNewTextDataStatus(name, email, department, phone, title, description, status){
+async function userNewTextDataStatus(name, email, department, phone, title, description, status) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -131,9 +131,9 @@ async function userNewTextDataStatus(name, email, department, phone, title, desc
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
-        subject: 'Yout Post has been rejected by the admin', // Subject line
-        html: `<h1>The post you send has been rejected by the admin </h1>
+        to: email, // List of recipients
+        subject: `Yout Post has been ${status} by the admin`, // Subject line
+        html: `<h1>The post you send has been ${status} by the admin </h1>
         <h3>Details: </h3>
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
@@ -152,7 +152,7 @@ async function userNewTextDataStatus(name, email, department, phone, title, desc
 }
 
 // Post Status Email to admin
-async function adminNewTextDataStatus(name, email, department, phone, title, description, status){
+async function adminNewTextDataStatus(name, email, department, phone, title, description, status) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -163,9 +163,9 @@ async function adminNewTextDataStatus(name, email, department, phone, title, des
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
-        subject: 'Yout Post has been rejected by the admin', // Subject line
-        html: `<h1>The post you send has been rejected by the admin </h1>
+        to: email, // List of recipients
+        subject: `Your ${status} a Post Request`, // Subject line
+        html: `<h1>Your ${status} a Post Request</h1>
         <h3>Details: </h3>
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
@@ -185,7 +185,7 @@ async function adminNewTextDataStatus(name, email, department, phone, title, des
 
 // Image Data Post Emails
 // Admin Email for new Post Request
-async function adminNewImageEmail(name, email, department, phone, image_url){
+async function adminNewImageEmail(name, email, department, phone, image_url) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -196,7 +196,7 @@ async function adminNewImageEmail(name, email, department, phone, image_url){
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
+        to: email, // List of recipients
         subject: 'New Post Request', // Subject line
         html: `<h1>Got a new Post Request From: </h1>
         <p><b>Name</b>: ${name}</p>
@@ -216,7 +216,7 @@ async function adminNewImageEmail(name, email, department, phone, image_url){
 }
 
 // User email for sending post request
-async function userNewImageEmail(name, email, department, phone, image_url){
+async function userNewImageEmail(name, email, department, phone, image_url) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -227,7 +227,7 @@ async function userNewImageEmail(name, email, department, phone, image_url){
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
+        to: email, // List of recipients
         subject: 'Yout Post Request is under review by the admin', // Subject line
         html: `<h1>You will get notified as it gets accepted!! </h1>
         <h3>Details: </h3>
@@ -235,6 +235,7 @@ async function userNewImageEmail(name, email, department, phone, image_url){
         <p><b>Email</b>: ${email}</p>
         <p><b>Department</b>: ${department}</p>
         <p><b>Phone</b>: ${phone}</p>
+        <a href="${image_url}">View Image</a>
         <a href="">View Image</a>`
     };
 
@@ -247,7 +248,7 @@ async function userNewImageEmail(name, email, department, phone, image_url){
 }
 
 // Status Email to User
-async function userNewImageEmailStatus(name, email, department, phone, image_url, status){
+async function userNewImageEmailStatus(name, email, department, phone, image_url, status) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -258,9 +259,9 @@ async function userNewImageEmailStatus(name, email, department, phone, image_url
 
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
-        subject: 'Yout Post has been rejected by the admin', // Subject line
-        html: `<h1>The post you send has been rejected by the admin </h1>
+        to: email, // List of recipients
+        subject: `Your Post has been ${status} by the admin`, // Subject line
+        html: `<h1>The post you send has been ${status} by the admin </h1>
         <h3>Details: </h3>
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
@@ -278,7 +279,7 @@ async function userNewImageEmailStatus(name, email, department, phone, image_url
 }
 
 // Post Status Email to admin
-async function adminNewTextDataStatus(name, email, department, phone, image_url, status){
+async function adminNewTextDataStatus(name, email, department, phone, image_url, status) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -290,8 +291,8 @@ async function adminNewTextDataStatus(name, email, department, phone, image_url,
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
         to: student_email, // List of recipients
-        subject: 'Yout Post has been rejected by the admin', // Subject line
-        html: `<h1>The post you send has been rejected by the admin </h1>
+        subject: `You ${status} a request`, // Subject line
+        html: `<h1>You ${status} a post reqest </h1>
         <h3>Details: </h3>
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
@@ -312,5 +313,10 @@ async function adminNewTextDataStatus(name, email, department, phone, image_url,
 module.exports = {
     adminNewTextData,
     userNewTextData,
-    userNewTextDataAccepted,
+    userNewTextDataStatus,
+    adminNewTextDataStatus,
+    adminNewImageEmail,
+    userNewImageEmail,
+    userNewImageEmailStatus,
+    adminNewTextDataStatus,
 }
