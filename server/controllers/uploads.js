@@ -1,5 +1,6 @@
 const Image = require("../models/image");
 const TextData = require("../models/textData");
+const { adminNewTextData, userNewTextData } = require("../sendemail")
 
 async function submitImage(req, res) {
     try {
@@ -26,10 +27,9 @@ async function submitImage(req, res) {
     }
 }
 
-async function submitText(req, res){
+async function submitText(req, res) {
     try {
-        const { name, email, department, year, phone } = req.body;
-        const {title, description} = req.body;
+        const { name, email, department, year, phone, title, description } = req.body;
         const createTextData = await TextData.create({
             name: name,
             email: email,
@@ -40,9 +40,12 @@ async function submitText(req, res){
             description: description,
         })
 
-        return res.json({success: true, message: "Text Data Added Successfully", data: createTextData});
+        adminNewTextData(name, email, department, year, phone, title, description);
+        userNewTextData(name, email, department, year, phone, title, description);
+
+        return res.json({ success: true, message: "Text Data Added Successfully", data: createTextData });
     } catch (error) {
-        return res.json({success: false, message: "Error Occurred", error: err.message});
+        return res.json({ success: false, message: "Error Occurred", error: err.message });
     }
 }
 
