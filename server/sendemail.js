@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer")
 
+// Login Emails to Admin and User
 async function sendEmailAdminNewLogin(name, dept, phone, year){
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
@@ -53,6 +54,8 @@ async function sendEmailUser(student_email){
     });
 }
 
+// Text Data Post Emails
+// Admin Email for new post request - TextData
 async function adminNewTextData(name, email, department, phone, title, description){
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
@@ -84,6 +87,7 @@ async function adminNewTextData(name, email, department, phone, title, descripti
     });
 }
 
+// User Email for Sending Post Request - TextData
 async function userNewTextData(name, email, department, phone, title, description){
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
@@ -115,7 +119,8 @@ async function userNewTextData(name, email, department, phone, title, descriptio
     });
 }
 
-async function userNewTextDataRejected(name, email, department, phone, title, description){
+// Post Status Email to user
+async function userNewTextDataStatus(name, email, department, phone, title, description, status){
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -146,7 +151,8 @@ async function userNewTextDataRejected(name, email, department, phone, title, de
     });
 }
 
-async function userNewTextDataAccepted(name, email, department, phone, title, description){
+// Post Status Email to admin
+async function adminNewTextDataStatus(name, email, department, phone, title, description, status){
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -158,16 +164,141 @@ async function userNewTextDataAccepted(name, email, department, phone, title, de
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
         to: student_email, // List of recipients
-        subject: 'Yout Post has been approved by the admin', // Subject line
-        html: `<h1>The post you send has been approved by the admin </h1>
+        subject: 'Yout Post has been rejected by the admin', // Subject line
+        html: `<h1>The post you send has been rejected by the admin </h1>
         <h3>Details: </h3>
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
         <p><b>Department</b>: ${department}</p>
         <p><b>Phone</b>: ${phone}</p>
         <p><b>Title</b>: ${title}</p>
-        <p><b>Description</b>: ${description}</p>
-        <a href="">View Post</a>`
+        <p><b>Description</b>: ${description}</p>`
+    };
+
+    transporter.sendMail(mailOptions_admin, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Done !! Message sent: %s', info.messageId);
+    });
+}
+
+// Image Data Post Emails
+// Admin Email for new Post Request
+async function adminNewImageEmail(name, email, department, phone, image_url){
+    let transporter = nodemailer.createTransport({
+        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
+        auth: {
+            user: 'codingez7@gmail.com', // Your email id
+            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
+        }
+    });
+
+    let mailOptions_admin = {
+        from: 'codingez7@gmail.com', // Sender address
+        to: student_email, // List of recipients
+        subject: 'New Post Request', // Subject line
+        html: `<h1>Got a new Post Request From: </h1>
+        <p><b>Name</b>: ${name}</p>
+        <p><b>Email</b>: ${email}</p>
+        <p><b>Department</b>: ${department}</p>
+        <p><b>Phone</b>: ${phone}</p>
+        <a href="${image_url}">View Image</a>
+        <a href="">View Request</a>`
+    };
+
+    transporter.sendMail(mailOptions_admin, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Done !! Message sent: %s', info.messageId);
+    });
+}
+
+// User email for sending post request
+async function userNewImageEmail(name, email, department, phone, image_url){
+    let transporter = nodemailer.createTransport({
+        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
+        auth: {
+            user: 'codingez7@gmail.com', // Your email id
+            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
+        }
+    });
+
+    let mailOptions_admin = {
+        from: 'codingez7@gmail.com', // Sender address
+        to: student_email, // List of recipients
+        subject: 'Yout Post Request is under review by the admin', // Subject line
+        html: `<h1>You will get notified as it gets accepted!! </h1>
+        <h3>Details: </h3>
+        <p><b>Name</b>: ${name}</p>
+        <p><b>Email</b>: ${email}</p>
+        <p><b>Department</b>: ${department}</p>
+        <p><b>Phone</b>: ${phone}</p>
+        <a href="">View Image</a>`
+    };
+
+    transporter.sendMail(mailOptions_admin, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Done !! Message sent: %s', info.messageId);
+    });
+}
+
+// Status Email to User
+async function userNewImageEmailStatus(name, email, department, phone, image_url, status){
+    let transporter = nodemailer.createTransport({
+        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
+        auth: {
+            user: 'codingez7@gmail.com', // Your email id
+            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
+        }
+    });
+
+    let mailOptions_admin = {
+        from: 'codingez7@gmail.com', // Sender address
+        to: student_email, // List of recipients
+        subject: 'Yout Post has been rejected by the admin', // Subject line
+        html: `<h1>The post you send has been rejected by the admin </h1>
+        <h3>Details: </h3>
+        <p><b>Name</b>: ${name}</p>
+        <p><b>Email</b>: ${email}</p>
+        <p><b>Department</b>: ${department}</p>
+        <p><b>Phone</b>: ${phone}</p>
+        <a href="${image_url}">View Image</a>`
+    };
+
+    transporter.sendMail(mailOptions_admin, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Done !! Message sent: %s', info.messageId);
+    });
+}
+
+// Post Status Email to admin
+async function adminNewTextDataStatus(name, email, department, phone, image_url, status){
+    let transporter = nodemailer.createTransport({
+        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
+        auth: {
+            user: 'codingez7@gmail.com', // Your email id
+            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
+        }
+    });
+
+    let mailOptions_admin = {
+        from: 'codingez7@gmail.com', // Sender address
+        to: student_email, // List of recipients
+        subject: 'Yout Post has been rejected by the admin', // Subject line
+        html: `<h1>The post you send has been rejected by the admin </h1>
+        <h3>Details: </h3>
+        <p><b>Name</b>: ${name}</p>
+        <p><b>Email</b>: ${email}</p>
+        <p><b>Department</b>: ${department}</p>
+        <p><b>Phone</b>: ${phone}</p>
+        <p><b>Title</b>: ${title}</p>
+        <p><b>Description</b>: ${description}</p>`
     };
 
     transporter.sendMail(mailOptions_admin, (error, info) => {
