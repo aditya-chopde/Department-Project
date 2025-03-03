@@ -88,7 +88,7 @@ async function adminNewTextData(name, email, department, phone, title, descripti
 }
 
 // User Email for Sending Post Request - TextData
-async function userNewTextData(name, email, department, phone, title, description) {
+async function userNewTextData(name, email, department, year, phone, title, description) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -106,6 +106,7 @@ async function userNewTextData(name, email, department, phone, title, descriptio
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
         <p><b>Department</b>: ${department}</p>
+        <p><b>Year</b>: ${year}</p>
         <p><b>Phone</b>: ${phone}</p>
         <p><b>Title</b>: ${title}</p>
         <p><b>Description</b>: ${description}</p>`
