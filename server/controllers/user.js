@@ -1,8 +1,9 @@
 const bcrypt = require("bcrypt")
 const User = require("../models/user");
+const {sign} = require("../auth")
 
 async function handleUserSignup(req, res) {
-    const { name, email, password } = req.body;
+    const { name, email, department, year, password } = req.body;
     try {
         const exists = await User.findOne({ email })
         if (exists) return res.json({ success: false, message: "User already exists", action: "Got to the login page" })
@@ -11,36 +12,36 @@ async function handleUserSignup(req, res) {
         const hash = await bcrypt.hash(password, salt)
 
         const createUser = await User.create({
-            name,
-            email,
-            password: hash,
+            name, email, department, year, password: hash,
         })
 
-        return res.send({ success: true, createUser })
+        const token = sign(createUser);
+
+        return res.send({ success: true, createUser, token })
 
     } catch (err) {
-        return res.send({ success: false, error: err })
+        return res.send({ success: false, error: err.message })
     }
 }
 
 async function handleUserLogin(req, res) {
-    const {email, password} = req.body;
+    const {name, email, password} = req.body;
 
     try {
         const find = await User.findOne({
             email
          })
 
-        if (!find) return res.json({success: false, msg: "user not found" })
+        if (!find) return res.json({success: false, message: "user not found" })
 
         const matchPass = await bcrypt.compare(password, find.password)
 
         if (!matchPass) return res.json({ sucess: false, message: "something went wrong" })
-
-        return res.json({ success: true, find})
+        const token = sign(find);
+        return res.json({ success: true, find, token})
 
     } catch (err) {
-        return res.json({ success: false, error: err })
+        return res.json({ success: false, error: err.message })
     }
 }
 
