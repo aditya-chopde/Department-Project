@@ -9,6 +9,7 @@ import AdminLogin from "./components/admin_dashboard/AdminLogin";
 import AdminPastPostsPage from "./pages/AdminPastPostsPage";
 import AddPostPage from "./pages/AddPostPage";
 import AddImagePage from "./pages/AddImagePage";
+import LoginRequestsPage from "./pages/LoginRequestsPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />}/>
           <Route path="/admin-dashboard/past-posts" element={<AdminPastPostsPage />}/>
+          <Route path="/admin-dashboard/login-requests" element={<LoginRequestsPage />}/>
         </Routes>
       </Router>
     </>

@@ -14,7 +14,10 @@ const Navbar = () => {
             <Link to="/admin-dashboard">Home</Link>
           </li>
           <li className="hover:cursor-pointer">
-            <Link to="/admin-dashboard/past-posts">Past Posts</Link>
+            <Link to="/admin-dashboard/login-requests">Login Requests</Link>
+          </li>
+          <li className="hover:cursor-pointer">
+            <Link to="/admin-dashboard/past-posts">Posts Requests</Link>
           </li>
           <li>
             <div className="avatar">

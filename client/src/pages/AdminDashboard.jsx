@@ -6,7 +6,9 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar/>
-      <RequestPosts/>
+      <div className='text-center mt-18 mb-5'>
+        <h1 className='text-bold text-2xl'>Welcome Admin, </h1>
+      </div>
     </div>
   )
 }
