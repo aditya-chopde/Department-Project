@@ -11,10 +11,10 @@ const Navbar = () => {
       <div>
         <ul className="flex flex-row gap-5 items-center">
           <li className="hover:cursor-pointer">
-            <Link to="/">Home</Link>
+            <Link to="/admin-dashboard">Home</Link>
           </li>
           <li className="hover:cursor-pointer">
-            <Link to="/posts">Past Posts</Link>
+            <Link to="/admin-dashboard/past-posts">Past Posts</Link>
           </li>
           <li>
             <div className="avatar">
