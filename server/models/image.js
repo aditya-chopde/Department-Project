@@ -1,23 +1,7 @@
 const mongoose = require("mongoose")
 
 const imageSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-    },
-    department: {
-        type: String,
-        required: true,
-    },
-    year: {
-        type: String,
-        required: true,
-    },
-    phone: {
+    title: {
         type: String,
         required: true,
     },
@@ -37,12 +21,20 @@ const imageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    },
     time: {
         type: String,
+    },
+    status: {
+        type: String,
+        default: "Pending"
     }
-  }, {
+}, {
     timestamps: true,
-  });
+});
 
 const Image = mongoose.model("image-data", imageSchema)
 
