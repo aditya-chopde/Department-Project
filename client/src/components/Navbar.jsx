@@ -1,5 +1,6 @@
 import React from "react";
 import { images } from "../assets/exports";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -10,10 +11,10 @@ const Navbar = () => {
         </div>
         <div>
           <ul className="flex flex-row gap-5 items-center">
-            <li className="hover:cursor-pointer">Home</li>
-            <li className="hover:cursor-pointer">Posts</li>
-            <li className="btn">Login</li>
-            <li className="btn btn-soft btn-primary">Signup</li>
+            <li className="hover:cursor-pointer"><Link to="/">Home</Link></li>
+            <li className="hover:cursor-pointer"><Link to="/posts">Posts</Link></li>
+            <li className="btn"><Link to="/login">Login</Link></li>
+            <li className="btn btn-soft btn-primary"><Link to="/signup">Signup</Link></li>
           </ul>
         </div>
       </nav>
