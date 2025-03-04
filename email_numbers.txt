@@ -1,8 +1,0 @@
-student login:- admin & student,
-student login approved:- admin & student,
-student login reject:- admin & student,
-student post submit:- admin & student,
-student post accept:- admin & student,
-total emails: 10
-admin: 5,
-student: 5.
