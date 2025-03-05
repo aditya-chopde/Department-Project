@@ -18,15 +18,15 @@ async function handleUserSignup(req, res) {
 
         const token = sign(createUser);
         sendEmailAdminNewLogin(createUser);
-        return res.send({ success: true, createUser, token })
+        return res.json({ success: true, message: "Request Send Successfully", createUser, token })
 
     } catch (err) {
-        return res.send({ success: false, error: err.message })
+        return res.json({ success: false, message: "Error Ocurred", error: err.message })
     }
 }
 
 async function handleUserLogin(req, res) {
-    const {name, email, password} = req.body;
+    const {email, password} = req.body;
 
     try {
         const find = await User.findOne({
@@ -36,13 +36,15 @@ async function handleUserLogin(req, res) {
         if (!find) return res.json({success: false, message: "user not found" })
 
         const matchPass = await bcrypt.compare(password, find.password)
+        const isApproved = find.status === "Approved";
 
         if (!matchPass) return res.json({ sucess: false, message: "something went wrong" })
+        if (isApproved===false) return res.json({ sucess: false, message: "Not a Approved Student" })
         const token = sign(find);
         return res.json({ success: true, find, token})
 
     } catch (err) {
-        return res.json({ success: false, error: err.message })
+        return res.json({ success: false, message: "Error Ocurred", error: err.message })
     }
 }
 
