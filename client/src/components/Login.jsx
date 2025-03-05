@@ -14,6 +14,7 @@ const Login = () => {
       await axios.post("http://localhost:3000/api/user/login", formData).then((res)=>{
         alert(res.data.message)
         console.log(res)
+        localStorage.setItem("user", res.data.find._id)
         navigate("/dashboard")
       })
     } catch (error) {
