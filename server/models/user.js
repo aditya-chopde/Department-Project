@@ -25,7 +25,12 @@ const userSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "Pending",
+    },
+    isVerified: {
+        type: String,
+        default: "false"
     }
+    
 })
 
 const User = mongoose.model("user", userSchema)
