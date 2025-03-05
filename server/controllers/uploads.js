@@ -1,12 +1,13 @@
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
-const { adminNewTextData, userNewTextData, adminNewImageEmail } = require("../sendemail")
+const { adminNewTextData, userNewTextData, adminNewImageEmail, userNewImageEmail } = require("../sendemail")
 
 async function submitImage(req, res) {
     try {
-        const { title, user } = req.body;
-        const { originalname, filename, size } = req.file;
+        const { title, user, file_image } = req.body;
+        const {originalname, filename, size} = req.file;
+        console.log(req.file)
         const path = `http://localhost:3000/uploads/${filename}`
         const saveFile = await Image.create({
             title: title,
@@ -22,9 +23,8 @@ async function submitImage(req, res) {
         adminNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
         userNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
 
-        return res.json({ success: true, message: "File Uploaded Successfully", data: saveFile })
+        return res.json({ success: true, message: "File Uploaded Successfully", file: saveFile})
     } catch (err) {
-        console.log(err.message)
         return res.json({ success: false, message: "Error occurred", error: err.message })
     }
 }
