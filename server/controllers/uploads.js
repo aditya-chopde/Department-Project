@@ -1,7 +1,7 @@
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
-const { adminNewTextData, userNewTextData } = require("../sendemail")
+const { adminNewTextData, userNewTextData, adminNewImageEmail } = require("../sendemail")
 
 async function submitImage(req, res) {
     try {
@@ -19,6 +19,8 @@ async function submitImage(req, res) {
         })
 
         const getUser = await User.findById(user);
+        adminNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
+        userNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
 
         return res.json({ success: true, message: "File Uploaded Successfully", data: saveFile })
     } catch (err) {

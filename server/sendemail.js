@@ -186,7 +186,7 @@ async function adminNewTextDataStatus(name, email, department, phone, title, des
 
 // Image Data Post Emails
 // Admin Email for new Post Request
-async function adminNewImageEmail(name, email, department, phone, image_url) {
+async function adminNewImageEmail(name, email, department, phone, title, image_url) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -204,6 +204,7 @@ async function adminNewImageEmail(name, email, department, phone, image_url) {
         <p><b>Email</b>: ${email}</p>
         <p><b>Department</b>: ${department}</p>
         <p><b>Phone</b>: ${phone}</p>
+        <p><b>Title</b>: ${title}</p>
         <a href="${image_url}">View Image</a>
         <a href="">View Request</a>`
     };
@@ -217,7 +218,7 @@ async function adminNewImageEmail(name, email, department, phone, image_url) {
 }
 
 // User email for sending post request
-async function userNewImageEmail(name, email, department, phone, image_url) {
+async function userNewImageEmail(name, email, department, phone, title, image_url) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -236,6 +237,7 @@ async function userNewImageEmail(name, email, department, phone, image_url) {
         <p><b>Email</b>: ${email}</p>
         <p><b>Department</b>: ${department}</p>
         <p><b>Phone</b>: ${phone}</p>
+        <p><b>Title</b>: ${title}</p>
         <a href="${image_url}">View Image</a>
         <a href="">View Image</a>`
     };
