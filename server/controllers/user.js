@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt")
 const User = require("../models/user");
 const {sign} = require("../auth");
 const { sendEmailAdminNewLogin } = require("../sendemail");
+const TextData = require("../models/textData");
 
 async function handleUserSignup(req, res) {
     const { name, email, department, year, phone, password } = req.body;
@@ -47,7 +48,18 @@ async function handleUserLogin(req, res) {
     }
 }
 
+async function getTextData(req, res){
+    try {
+        const {id} = req.params;
+        const getData = await TextData.find({user: id})
+        return res.json({success: true, message: "All Posts are Fetched", posts: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: err.message});
+    }
+}
+
 module.exports = {
     handleUserSignup,
     handleUserLogin,
+    getTextData,
 }
