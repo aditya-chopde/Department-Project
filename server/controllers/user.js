@@ -3,6 +3,7 @@ const User = require("../models/user");
 const {sign} = require("../auth");
 const { sendEmailAdminNewLogin } = require("../sendemail");
 const TextData = require("../models/textData");
+const Image = require("../models/image");
 
 async function handleUserSignup(req, res) {
     const { name, email, department, year, phone, password } = req.body;
@@ -58,8 +59,19 @@ async function getTextData(req, res){
     }
 }
 
+async function getImageData(req, res){
+    try {
+        const {id} = req.params;
+        const getData = await Image.find({user: id})
+        return res.json({success: true, message: "All Posts are Fetched", posts: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: err.message});
+    }
+}
+
 module.exports = {
     handleUserSignup,
     handleUserLogin,
     getTextData,
+    getImageData,
 }

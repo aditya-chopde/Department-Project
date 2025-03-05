@@ -3,23 +3,38 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Posts = () => {
-  const [data, setData] = useState([])
-  const user =  localStorage.getItem("user")
+  const [data, setData] = useState([]);
+  const [dataImage, setDataImage] = useState([]);
+  const user = localStorage.getItem("user");
 
   async function getTextData(user) {
     try {
-      await axios.get(`http://localhost:3000/api/user/get-text-data/${user}`).then((res)=>{
-        setData(res.data.posts)
-      })
+      await axios
+        .get(`http://localhost:3000/api/user/get-text-data/${user}`)
+        .then((res) => {
+          setData(res.data.posts);
+        });
     } catch (error) {
-      alert("An Error Ocurred: "+error.message)
+      alert("An Error Ocurred: " + error.message);
+    }
+  }
+
+  async function getImageData(user) {
+    try {
+      await axios
+        .get(`http://localhost:3000/api/user/get-image-data/${user}`)
+        .then((res) => {
+          setDataImage(res.data.posts);
+        });
+    } catch (error) {
+      alert("An Error Ocurred: " + error.message);
     }
   }
 
   useEffect(() => {
-    getTextData(user)
-  }, [])
-  
+    getTextData(user);
+    getImageData(user);
+  }, []);
 
   return (
     <div className="my-10">
@@ -35,30 +50,41 @@ const Posts = () => {
         <div>
           <h1 className="font-bold text-2xl">Text Posts</h1>
           <div className="my-5">
-            {data.map((item)=>(
-              <div key={item._id} className="my-3 border border-md p-3 flex flex-row justify-between items-end">
-              <div>
-                <h1 className="font-bold text-xl">{item.title}</h1>
-                <p>{item.description}</p>
+            {data.map((item) => (
+              <div
+                key={item._id}
+                className="my-3 border border-md p-3 flex flex-row justify-between items-end"
+              >
+                <div>
+                  <h1 className="font-bold text-xl">{item.title}</h1>
+                  <p>{item.description}</p>
+                </div>
+                <div>
+                  <p>{item.status}</p>
+                </div>
               </div>
-              <div>
-                <p>{item.status}</p>
-              </div>
-            </div>
             ))}
           </div>
         </div>
         <div>
           <h1 className="font-bold text-2xl">Image Posts</h1>
-          <div>
-            <div>
-              <div>
-                <img src="" alt="" />
+          <div className="">
+            {dataImage.map((item) => (
+              <div
+                key={item._id}
+                className="border rounded-md p-3 my-3 flex flex-row gap-5 justify-between items-end"
+              >
+                <div className="flex flex-row gap-5">
+                  <img src={item.path} alt="image_data" className="w-36" />
+                  <div>
+                    <h1 className="text-xl font-bold">{item.title}</h1>
+                  </div>
+                </div>
+                <div>
+            {item.status}
+                </div>
               </div>
-              <div>
-                <p></p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
