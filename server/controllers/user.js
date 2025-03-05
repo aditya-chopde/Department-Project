@@ -26,9 +26,8 @@ async function handleUserSignup(req, res) {
 }
 
 async function handleUserLogin(req, res) {
-    const {email, password} = req.body;
-
     try {
+        const {email, password} = req.body;
         const find = await User.findOne({
             email
          })
@@ -41,7 +40,7 @@ async function handleUserLogin(req, res) {
         if (!matchPass) return res.json({ sucess: false, message: "something went wrong" })
         if (isApproved===false) return res.json({ sucess: false, message: "Not a Approved Student" })
         const token = sign(find);
-        return res.json({ success: true, find, token})
+        return res.json({ success: true, message: "User Found", find, token})
 
     } catch (err) {
         return res.json({ success: false, message: "Error Ocurred", error: err.message })
