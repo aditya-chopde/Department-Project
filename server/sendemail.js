@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 
 // Login Emails to Admin and User
-async function sendEmailAdminNewLogin(name, dept, phone, year) {
+async function sendEmailAdminNewLogin(user) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -14,12 +14,13 @@ async function sendEmailAdminNewLogin(name, dept, phone, year) {
         from: 'codingez7@gmail.com', // Sender address
         to: "its.adityac@gmail.com", // List of recipients
         subject: 'New Student Registration', // Subject line
-        html: `<h1>Got a New Student Registration</h1>
-        <p>Name: ${name} </p>
-        <p>Department:  ${dept} </p>
-        <p>Phone:  ${phone} </p>
-        <p>Year:  ${year} </p>
-        <a href="https://admin-jsub.onrender.com">View Admin</a>`
+        html: `<h1>Got a New Student Login Request</h1>
+        <p>Name: ${user.name} </p>
+        <p>Email: ${user.email} </p>
+        <p>Department:  ${user.department} </p>
+        <p>Phone:  ${user.phone} </p>
+        <p>Year:  ${user.year} </p>
+        <a href="">View Admin</a>`
     };
 
     transporter.sendMail(mailOptions_admin, (error, info) => {
@@ -56,7 +57,7 @@ async function sendEmailUser(student_email) {
 
 // Text Data Post Emails
 // Admin Email for new post request - TextData
-async function adminNewTextData(name, email, department, phone, title, description) {
+async function adminNewTextData(name, email, department, year, phone, title, description) {
     let transporter = nodemailer.createTransport({
         service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
         auth: {
@@ -73,6 +74,7 @@ async function adminNewTextData(name, email, department, phone, title, descripti
         <p><b>Name</b>: ${name}</p>
         <p><b>Email</b>: ${email}</p>
         <p><b>Department</b>: ${department}</p>
+        <p><b>Year</b>: ${year}</p>
         <p><b>Phone</b>: ${phone}</p>
         <p><b>Title</b>: ${title}</p>
         <p><b>Description</b>: ${description}</p>
@@ -100,7 +102,7 @@ async function userNewTextData(name, email, department, year, phone, title, desc
     let mailOptions_admin = {
         from: 'codingez7@gmail.com', // Sender address
         to: email, // List of recipients
-        subject: 'Yout Post Request is under review by the admin', // Subject line
+        subject: 'Your Post Request is under review by the admin', // Subject line
         html: `<h1>You will get notified as it gets accepted!! </h1>
         <h3>Details: </h3>
         <p><b>Name</b>: ${name}</p>
@@ -314,6 +316,8 @@ async function adminNewTextDataStatus(name, email, department, phone, image_url,
 }
 
 module.exports = {
+    sendEmailUser,
+    sendEmailAdminNewLogin,
     adminNewTextData,
     userNewTextData,
     userNewTextDataStatus,

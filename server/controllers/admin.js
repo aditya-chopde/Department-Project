@@ -1,12 +1,13 @@
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
-const { userNewTextDataStatus } = require("../sendemail");
+const { userNewTextDataStatus, sendEmailUser } = require("../sendemail");
 
 async function approveLoginHandler(res, res) {
     try {
         const { id } = req.params;
         const approveLogin = await User.findByIdAndUpdate(id, { status: "Approved" });
+        sendEmailUser(approveLogin.email);
         return res.json({ success: true, data: approveLogin })
     } catch (err) {
         return res.json({ success: false, message: "Error Ocurreed", error: err.message })

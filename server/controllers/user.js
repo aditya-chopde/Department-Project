@@ -1,9 +1,10 @@
 const bcrypt = require("bcrypt")
 const User = require("../models/user");
-const {sign} = require("../auth")
+const {sign} = require("../auth");
+const { sendEmailAdminNewLogin } = require("../sendemail");
 
 async function handleUserSignup(req, res) {
-    const { name, email, department, year, password } = req.body;
+    const { name, email, department, year, phone, password } = req.body;
     try {
         const exists = await User.findOne({ email })
         if (exists) return res.json({ success: false, message: "User already exists", action: "Got to the login page" })
@@ -12,11 +13,11 @@ async function handleUserSignup(req, res) {
         const hash = await bcrypt.hash(password, salt)
 
         const createUser = await User.create({
-            name, email, department, year, password: hash,
+            name, email, department, year, phone, password: hash,
         })
 
         const token = sign(createUser);
-
+        sendEmailAdminNewLogin(createUser);
         return res.send({ success: true, createUser, token })
 
     } catch (err) {
