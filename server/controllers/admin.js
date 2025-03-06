@@ -25,7 +25,7 @@ async function rejectLoginHandler(res, res) {
 }
 
 async function approvePostHandler(req, res) {
-    // try {
+    try {
         const { id } = req.params;
         const acceptImagePostRequest = await Image.findByIdAndUpdate(id, { status: "Accepted" });
 
@@ -35,9 +35,9 @@ async function approvePostHandler(req, res) {
         // adminNewTextDataStatus(acceptImagePostRequest.name, acceptImagePostRequest.email, acceptImagePostRequest.department, acceptImagePostRequest.phone, acceptImagePostRequest.path, "Accepted")
 
         return res.json({ success: true,  message: "Approved Successfully", data: acceptImagePostRequest })
-    // } catch (err) {
-    //     return res.json({ success: false, message: "Error Ocurreed", error: err.message })
-    // }
+    } catch (err) {
+        return res.json({ success: false, message: "Error Ocurreed", error: err.message })
+    }
 }
 
 async function rejectPostHandler(req, res) {
