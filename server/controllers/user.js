@@ -49,6 +49,15 @@ async function handleUserLogin(req, res) {
     }
 }
 
+async function getUsers(req, res){
+    try {
+        const getUsersData = await User.find();
+        return res.json({success: true, message: "All Users are Fetched", users: getUsersData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: error.message});
+    }
+}
+
 async function getTextData(req, res){
     try {
         const {id} = req.params;
@@ -72,6 +81,7 @@ async function getImageData(req, res){
 module.exports = {
     handleUserSignup,
     handleUserLogin,
+    getUsers,
     getTextData,
     getImageData,
 }
