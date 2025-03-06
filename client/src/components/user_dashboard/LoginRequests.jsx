@@ -16,6 +16,26 @@ const LoginRequests = () => {
     }
   }
 
+  async function approveLogin(id){
+    try {
+      await axios.get(`http://localhost:3000/api/admin/approve-login/${id}`).then((res)=>{
+        alert(res.data.message);
+      })
+    } catch (error) {
+      alert("Error Ocurred: "+ error.message);
+    }
+  }
+
+  async function rejectLogin(id){
+    try {
+      await axios.get(`http://localhost:3000/api/admin/reject-login/${id}`).then((res)=>{
+        alert(res.data.message);
+      })
+    } catch (error) {
+      alert("Error Ocurred: "+ error.message);
+    }
+  }
+
   useEffect(() => {
     getUsersData();
   }, []);
@@ -37,8 +57,8 @@ const LoginRequests = () => {
           <div>
             {item.status === "Pending" ? (
               <div>
-                <button className="btn btn-primary">Approve</button>
-                <button className="btn">Reject</button>
+                <button className="btn btn-primary" onClick={()=>approveLogin(item._id)}>Approve</button>
+                <button className="btn" onClick={()=> rejectLogin(item._id)}>Reject</button>
               </div>
             ) : (
               <button className="btn btn-success">Approved</button>
