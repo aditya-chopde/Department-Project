@@ -18,7 +18,7 @@ const LoginRequests = () => {
 
   async function approveLogin(id){
     try {
-      await axios.get(`http://localhost:3000/api/admin/approve-login/${id}`).then((res)=>{
+      await axios.post(`http://localhost:3000/api/admin/approve-login/${id}`).then((res)=>{
         alert(res.data.message);
       })
     } catch (error) {
@@ -28,7 +28,7 @@ const LoginRequests = () => {
 
   async function rejectLogin(id){
     try {
-      await axios.get(`http://localhost:3000/api/admin/reject-login/${id}`).then((res)=>{
+      await axios.post(`http://localhost:3000/api/admin/reject-login/${id}`).then((res)=>{
         alert(res.data.message);
       })
     } catch (error) {

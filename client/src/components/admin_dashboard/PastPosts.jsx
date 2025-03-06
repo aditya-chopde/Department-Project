@@ -11,7 +11,6 @@ const PastPosts = () => {
         .get(`http://localhost:3000/api/admin/get-image-data`)
         .then((res) => {
           setDataImage(res.data.data);
-          console.log(res);
         });
     } catch (error) {
       alert("An Error Ocurred: " + error.message);
@@ -24,10 +23,53 @@ const PastPosts = () => {
         .get(`http://localhost:3000/api/admin/get-text-data`)
         .then((res) => {
           setDataText(res.data.data);
-          console.log(res);
         });
     } catch (error) {
       alert("An Error Ocurred: " + error.message);
+    }
+  }
+
+  async function approveImage(id){
+    try {
+      await axios.post(`http://localhost:3000/api/admin/approve-post/${id}`).then((res)=>{
+        alert(res.data.message);
+      })
+      getImageData()
+    } catch (error) {
+      alert("Error Ocurred: "+ error.message);
+    }
+  }
+
+  async function rejectImage(id){
+    try {
+      await axios.post(`http://localhost:3000/api/admin/reject-post/${id}`).then((res)=>{
+        alert(res.data.message);
+      })
+      getImageData()
+    } catch (error) {
+      alert("Error Ocurred: "+ error.message);
+    }
+  }
+
+  async function approveText(id){
+    try {
+      await axios.post(`http://localhost:3000/api/admin/approve-post-text/${id}`).then((res)=>{
+        alert(res.data.message);
+      })
+      getTextData()
+    } catch (error) {
+      alert("Error Ocurred: "+ error.message);
+    }
+  }
+
+  async function rejectText(id){
+    try {
+      await axios.post(`http://localhost:3000/api/admin/reject-post-text/${id}`).then((res)=>{
+        alert(res.data.message);
+      })
+      getTextData()
+    } catch (error) {
+      alert("Error Ocurred: "+ error.message);
     }
   }
 
@@ -55,7 +97,14 @@ const PastPosts = () => {
                 <p>{item.year}</p>
               </div>
               <div>
-                <button className="btn">{item.status}</button>
+                {item.status === "Pending" ? (
+              <div>
+                <button className="btn btn-primary" onClick={()=>approveText(item._id)}>Approve</button>
+                <button className="btn" onClick={()=> rejectText(item._id)}>Reject</button>
+              </div>
+            ) : (
+              <button className={`btn ${item.success==="Approved"?"btn-success":"btn-error"}`}>{item.status}</button>
+            )}
               </div>
             </div>
           ))}
@@ -79,7 +128,14 @@ const PastPosts = () => {
                   </div>
                 </div>
                 <div>
-                  <button className="btn">{item.status}</button>
+                  {item.status === "Pending" ? (
+              <div>
+                <button className="btn btn-primary" onClick={()=>approveImage(item._id)}>Approve</button>
+                <button className="btn" onClick={()=> rejectImage(item._id)}>Reject</button>
+              </div>
+            ) : (
+              <button className={`btn ${item.status==="Approved"?"btn-success":"btn-error"}`}>{item.status}</button>
+            )}
                 </div>
               </div>
             ))}
