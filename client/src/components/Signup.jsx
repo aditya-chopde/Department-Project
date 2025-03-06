@@ -37,8 +37,9 @@ const Signup = () => {
               <input
                 type="text"
                 className="input w-full"
-                placeholder="eg. Sham Jadhav"
+                placeholder="eg. John Jadhav"
                 onChange={(e)=> setName(e.target.value)}
+                required
               />
             </fieldset>
             <fieldset className="fieldset my-2">
@@ -48,6 +49,7 @@ const Signup = () => {
                 className="input w-full"
                 placeholder="eg. shamjadhav@gmail.com"
                 onChange={(e)=> setEmail(e.target.value)}
+                required
               />
             </fieldset>
             <fieldset className="fieldset my-2">
@@ -57,11 +59,12 @@ const Signup = () => {
                 className="input w-full"
                 placeholder="eg. Computer Engineering"
                 onChange={(e)=> setDepartment(e.target.value)}
+                required
               />
             </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Select Year: </legend>
-              <select defaultValue="Pick a browser" className="select w-full" onChange={(e)=> setYear(e.target.value)}>
+              <select defaultValue="Pick a browser" className="select w-full" onChange={(e)=> setYear(e.target.value)} required>
                 <option disabled={true}>Pick a Option</option>
                 <option>First Year</option>
                 <option>Second Year</option>
@@ -76,6 +79,7 @@ const Signup = () => {
                 className="input w-full"
                 placeholder="eg. 9657393894"
                 onChange={(e)=> setPhone(e.target.value)}
+                required
               />
             </fieldset>
             <fieldset className="fieldset my-2">
@@ -85,6 +89,7 @@ const Signup = () => {
                 className="input w-full"
                 placeholder="eg. ********"
                 onChange={(e)=> setPassword(e.target.value)}
+                required
               />
             </fieldset>
             <div>

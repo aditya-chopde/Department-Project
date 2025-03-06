@@ -27,7 +27,7 @@ async function rejectLoginHandler(res, res) {
 async function approvePostHandler(req, res) {
     try {
         const { id } = req.params;
-        const acceptImagePostRequest = await Image.findByIdAndUpdate(id, { status: "Accepted" });
+        const acceptImagePostRequest = await Image.findByIdAndUpdate(id, { status: "Approved" });
 
         // Send Email to the user
         // userNewImageEmailStatus(acceptImagePostRequest.name, acceptImagePostRequest.email, acceptImagePostRequest.department, acceptImagePostRequest.phone, acceptImagePostRequest.path, "Accepted")
@@ -59,7 +59,7 @@ async function rejectPostHandler(req, res) {
 async function acceptTextDataHandler(req, res) {
     try {
         const { id } = req.params;
-        const acceptTextData = await TextData.findByIdAndUpdate(id, { status: "Accepted" });
+        const acceptTextData = await TextData.findByIdAndUpdate(id, { status: "Approved" });
 
         // Sending email to the user
         // userNewTextDataStatus(acceptTextData.name, acceptTextData.email, acceptTextData.department, acceptTextData.phone, acceptTextData.title, acceptTextData.description, "Accepted")

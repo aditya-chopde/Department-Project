@@ -32,11 +32,11 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             <fieldset className="fieldset my-2">
               <legend className="fieldset-legend">Enter Email: </legend>
-              <input type="text" className="input w-full" onChange={(e) => setEmail(e.target.value)} placeholder="eg. shamjadhav@gmail.com" />
+              <input type="text" className="input w-full" onChange={(e) => setEmail(e.target.value)} placeholder="eg. johnjadhav@gmail.com" />
             </fieldset>
             <fieldset className="fieldset my-2">
               <legend className="fieldset-legend">Enter Password: </legend>
-              <input type="text" className="input w-full" onChange={(e)=> setPassword(e.target.value)} placeholder="eg. ********" />
+              <input type="password" className="input w-full" onChange={(e)=> setPassword(e.target.value)} placeholder="eg. ********" />
             </fieldset>
             <div>
                 <button className="btn btn-primary w-full my-2">Login</button>

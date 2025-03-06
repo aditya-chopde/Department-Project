@@ -1,8 +1,9 @@
 import React from "react";
 import { images } from "../../assets/exports";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="flex flex-row justify-around my-5">
       <div className="hover:cursor-pointer">
@@ -17,7 +18,7 @@ const Navbar = () => {
             <Link to="/posts">Posts</Link>
           </li>
           <li>
-            <div className="avatar">
+            <div className="avatar hover:cursor-pointer" onClick={()=> navigate('/')}>
               <div className="w-10 rounded-full">
                 <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
               </div>
