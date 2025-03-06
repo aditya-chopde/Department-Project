@@ -7,9 +7,12 @@ async function submitImage(req, res) {
     try {
         const { title, user, file_image } = req.body;
         const {originalname, filename, size} = req.file;
-        console.log(req.file)
         const path = `http://localhost:3000/uploads/${filename}`
+        const getUser = await User.findById(user);
         const saveFile = await Image.create({
+            name: getUser.name,
+            department: getUser.department,
+            year: getUser.year,
             title: title,
             originalName: originalname,
             fileName: filename,
@@ -19,7 +22,6 @@ async function submitImage(req, res) {
             time: new Date()
         })
 
-        const getUser = await User.findById(user);
         adminNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
         userNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
 
@@ -32,13 +34,15 @@ async function submitImage(req, res) {
 async function submitText(req, res) {
     try {
         const { user, title, description } = req.body;
+        const getUser = await User.findById(user);
         const createTextData = await TextData.create({
+            name: getUser.name,
+            department: getUser.department,
+            year: getUser.year,
             title: title,
             description: description,
             user: user,
         })
-
-        const getUser = await User.findById(user);
 
         adminNewTextData(getUser.name, getUser.email, getUser.department, getUser.year, getUser.phone, title, description);
         userNewTextData(getUser.name, getUser.email, getUser.department, getUser.year, getUser.phone, title, description);
@@ -49,7 +53,27 @@ async function submitText(req, res) {
     }
 }
 
+async function getTextDataForAdmin(req, res){
+    try {
+        const getData = await TextData.find();
+        return res.json({success: true, message: "Data Fetchde Successfully", data: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: error.message});
+    }
+}
+
+async function getImageDataForAdmin(req, res){
+    try {
+        const getData = await Image.find();
+        return res.json({success: true, message: "Data Fetched Successfully", data: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: error.message});
+    }
+}
+
 module.exports = {
     submitImage,
     submitText,
+    getTextDataForAdmin,
+    getImageDataForAdmin,
 }
