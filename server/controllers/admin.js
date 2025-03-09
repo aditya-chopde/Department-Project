@@ -3,7 +3,7 @@ const TextData = require("../models/textData");
 const User = require("../models/user");
 const { userNewTextDataStatus, sendEmailUser, userNewImageEmailStatus, adminNewTextDataStatus } = require("../sendemail");
 
-async function approveLoginHandler(res, res) {
+async function approveLoginHandler(req, res) {
     try {
         const { id } = req.params;
         const approveLogin = await User.findByIdAndUpdate(id, { status: "Approved" });

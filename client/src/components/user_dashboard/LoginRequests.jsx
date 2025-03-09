@@ -17,9 +17,10 @@ const LoginRequests = () => {
   }
 
   async function approveLogin(id){
-    try {
+    try { 
       await axios.post(`http://localhost:3000/api/admin/approve-login/${id}`).then((res)=>{
         alert(res.data.message);
+        getUsersData();
       })
     } catch (error) {
       alert("Error Ocurred: "+ error.message);
@@ -30,6 +31,7 @@ const LoginRequests = () => {
     try {
       await axios.post(`http://localhost:3000/api/admin/reject-login/${id}`).then((res)=>{
         alert(res.data.message);
+        getUsersData();
       })
     } catch (error) {
       alert("Error Ocurred: "+ error.message);
