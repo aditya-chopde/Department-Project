@@ -1,329 +1,119 @@
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 
-// Login Emails to Admin and User
-async function sendEmailAdminNewLogin(user) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
+const sendStudentRegistrationEmail = async (user) => {
+    try {
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: 'codingez7@gmail.com', // Your email id
+                pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
+            }
+        });
 
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: "its.adityac@gmail.com", // List of recipients
-        subject: 'New Student Registration', // Subject line
-        html: `<h1>Got a New Student Login Request</h1>
-        <p>Name: ${user.name} </p>
-        <p>Email: ${user.email} </p>
-        <p>Department:  ${user.department} </p>
-        <p>Phone:  ${user.phone} </p>
-        <p>Year:  ${user.year} </p>
-        <a href="">View Admin</a>`
-    };
+        // Define the email template for admin
+        let emailTemplate_admin = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Student Registration</title>
+            <style>
+                body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+                .container { width: 90%; max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+                h1 { text-align: center; color: #333; }
+                p { font-size: 16px; color: #555; line-height: 1.6; }
+                .details { background-color: #f9f9f9; padding: 10px; border-radius: 5px; }
+                .details p { margin: 5px 0; font-weight: bold; }
+                .button { display: block; width: 200px; margin: 20px auto; text-align: center; background-color: #007BFF; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; }
+                .footer { text-align: center; font-size: 12px; color: #888; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>New Student Registration</h1>
+                <p>Hello Admin,</p>
+                <p>A new student has submitted a registration request. Below are the details:</p>
+                
+                <div class="details">
+                    <p><strong>Name:</strong> ${user.name}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Department:</strong> ${user.department}</p>
+                    <p><strong>Phone:</strong> ${user.phone}</p>
+                    <p><strong>Year:</strong> ${user.year}</p>
+                </div>
 
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
+                <a href="https://your-admin-panel-link.com" class="button">View in Admin Panel</a>
 
-async function sendEmailUser(student_email) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
+                <p class="footer">This is an automated message. Please do not reply.</p>
+            </div>
+        </body>
+        </html>`;
 
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: student_email, // List of recipients
-        subject: 'Registration Request Accepted', // Subject line
-        html: `<h1>Your resgistration request gets accepted by the admin 🎉</h1>`
-    };
+        // Define the email template for student
+        let emailTemplate_student = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Student Registration Request Sent</title>
+            <style>
+                body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+                .container { width: 90%; max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+                h1 { text-align: center; color: #333; }
+                p { font-size: 16px; color: #555; line-height: 1.6; }
+                .details { background-color: #f9f9f9; padding: 10px; border-radius: 5px; }
+                .details p { margin: 5px 0; font-weight: bold; }
+                .button { display: block; width: 200px; margin: 20px auto; text-align: center; background-color: #007BFF; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; }
+                .footer { text-align: center; font-size: 12px; color: #888; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>New Student Registration Request Sent</h1>
+                <p>Hello ${user.name},</p>
+                <p>Your registration request has been sent to the admin. You will be notified once it is approved. Below are the details:</p>
+                
+                <div class="details">
+                    <p><strong>Name:</strong> ${user.name}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Department:</strong> ${user.department}</p>
+                    <p><strong>Phone:</strong> ${user.phone}</p>
+                    <p><strong>Year:</strong> ${user.year}</p>
+                </div>
+                <p class="footer">This is an automated message. Please do not reply.</p>
+            </div>
+        </body>
+        </html>`;
 
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
+        // Email to Admin
+        let mailOptions_admin = {
+            from: "codingez7@gmail.com",
+            to: "chopadeaditya55@gmail.com",
+            subject: "New Student Registration",
+            html: emailTemplate_admin
+        };
 
-// Text Data Post Emails
-// Admin Email for new post request - TextData
-async function adminNewTextData(name, email, department, year, phone, title, description) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
+        // Email to Student
+        let mailOptions_student = {
+            from: "codingez7@gmail.com",
+            to: user.email,
+            subject: "Your Registration Request Has Been Sent",
+            html: emailTemplate_student
+        };
 
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: 'New Post Request', // Subject line
-        html: `<h1>Got a new Post Request From: </h1>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Year</b>: ${year}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <p><b>Description</b>: ${description}</p>
-        <a href="">View Request</a>`
-    };
+        // Send emails
+        await transporter.sendMail(mailOptions_admin);
+        await transporter.sendMail(mailOptions_student);
 
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
+        console.log("Emails sent successfully!");
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
+};
 
-// User Email for Sending Post Request - TextData
-async function userNewTextData(name, email, department, year, phone, title, description) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: 'Your Post Request is under review by the admin', // Subject line
-        html: `<h1>You will get notified as it gets accepted!! </h1>
-        <h3>Details: </h3>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Year</b>: ${year}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <p><b>Description</b>: ${description}</p>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
-// Post Status Email to user
-async function userNewTextDataStatus(name, email, department, phone, title, description, status) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: `Yout Post has been ${status} by the admin`, // Subject line
-        html: `<h1>The post you send has been ${status} by the admin </h1>
-        <h3>Details: </h3>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <p><b>Description</b>: ${description}</p>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
-// Post Status Email to admin
-async function adminNewTextDataStatus(name, email, department, phone, title, description, status) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: `Your ${status} a Post Request`, // Subject line
-        html: `<h1>Your ${status} a Post Request</h1>
-        <h3>Details: </h3>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <p><b>Description</b>: ${description}</p>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
-// Image Data Post Emails
-// Admin Email for new Post Request
-async function adminNewImageEmail(name, email, department, phone, title, image_url) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: 'New Post Request', // Subject line
-        html: `<h1>Got a new Post Request From: </h1>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <a href="${image_url}">View Image</a>
-        <a href="">View Request</a>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
-// User email for sending post request
-async function userNewImageEmail(name, email, department, phone, title, image_url) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: 'Yout Post Request is under review by the admin', // Subject line
-        html: `<h1>You will get notified as it gets accepted!! </h1>
-        <h3>Details: </h3>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <a href="${image_url}">View Image</a>
-        <a href="">View Image</a>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
-// Status Email to User
-async function userNewImageEmailStatus(name, email, department, phone, image_url, status) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: `Your Post has been ${status} by the admin`, // Subject line
-        html: `<h1>The post you send has been ${status} by the admin </h1>
-        <h3>Details: </h3>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <a href="${image_url}">View Image</a>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
-// Post Status Email to admin
-async function adminNewTextDataStatus(name, email, department, phone, title, status) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use 'service' if you are using a popular email provider like Gmail
-        auth: {
-            user: 'codingez7@gmail.com', // Your email id
-            pass: 'mvoh tszg pgek eufb'   // Your email password or App Password if 2FA is enabled
-        }
-    });
-
-    let mailOptions_admin = {
-        from: 'codingez7@gmail.com', // Sender address
-        to: email, // List of recipients
-        subject: `You ${status} a request`, // Subject line
-        html: `<h1>You ${status} a post reqest </h1>
-        <h3>Details: </h3>
-        <p><b>Name</b>: ${name}</p>
-        <p><b>Email</b>: ${email}</p>
-        <p><b>Department</b>: ${department}</p>
-        <p><b>Phone</b>: ${phone}</p>
-        <p><b>Title</b>: ${title}</p>
-        <p><b>Description</b>: ${description}</p>`
-    };
-
-    transporter.sendMail(mailOptions_admin, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Done !! Message sent: %s', info.messageId);
-    });
-}
-
+// Example usage
 module.exports = {
-    sendEmailUser,
-    sendEmailAdminNewLogin,
-    adminNewTextData,
-    userNewTextData,
-    userNewTextDataStatus,
-    adminNewTextDataStatus,
-    adminNewImageEmail,
-    userNewImageEmail,
-    userNewImageEmailStatus,
-    adminNewTextDataStatus,
-}
+    sendStudentRegistrationEmail,
+};
