@@ -10,6 +10,7 @@ import AdminPastPostsPage from "./pages/AdminPastPostsPage";
 import AddPostPage from "./pages/AddPostPage";
 import AddImagePage from "./pages/AddImagePage";
 import LoginRequestsPage from "./pages/LoginRequestsPage";
+import AllPosts from "./pages/AllPosts";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/posts" element={<AllPosts />} />
 
           {/* User Dashboard Routes  */}
           <Route path="/dashboard" element={<UserDashboard />}/>
