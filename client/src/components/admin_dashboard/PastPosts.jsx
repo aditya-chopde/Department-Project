@@ -103,7 +103,7 @@ const PastPosts = () => {
                 <button className="btn" onClick={()=> rejectText(item._id)}>Reject</button>
               </div>
             ) : (
-              <button className={`btn ${item.success==="Approved"?"btn-success":"btn-error"}`}>{item.status}</button>
+              <button className={`btn ${item.status==="Approved"?"btn-success":"btn-error"}`}>{item.status}</button>
             )}
               </div>
             </div>
