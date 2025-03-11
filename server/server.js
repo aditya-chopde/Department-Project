@@ -5,7 +5,7 @@ const { connectDb } = require("./connectdb");
 const user = require("./routes/user");
 const uploads = require("./routes/uploads")
 const admin = require("./routes/admin");
-const { sendStudentRegistrationEmail, sendStudentRegistrationStatusEmail, sendTextPostRequestEmail } = require("./sendemail");
+const { sendStudentRegistrationEmail, sendStudentRegistrationStatusEmail, sendTextPostRequestEmail, sendTextPostRequestStatusEmail, sendImagePostRequestEmail } = require("./sendemail");
 require('dotenv').config();
 const app = express()
 const PORT = 3000;
@@ -26,16 +26,17 @@ connectDb("mongodb://localhost:27017/cm").then(() => {
 })
 
 app.get("/", async (req, res) => {
-    sendTextPostRequestEmail({
+    sendImagePostRequestEmail({
         name: "Aditya Chopde",
         email: "its.adityac@gmail.com",
         department: "Computer Science",
         phone: "9657393894",
         year: "3rd Year"
     }, {
-        title: "Test Post",
-        content: "This is a test post"
-    })
+        title: "Title of the image",
+        path: "http://localhost:3000/uploads/file_image-1741523495490-983847057.jpg",
+        status: "Pending"
+      })
     return res.json({ success: true, message: "API Working & Email Sent" })
 })
 
