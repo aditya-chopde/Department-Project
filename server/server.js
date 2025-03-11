@@ -5,7 +5,6 @@ const { connectDb } = require("./connectdb");
 const user = require("./routes/user");
 const uploads = require("./routes/uploads")
 const admin = require("./routes/admin");
-const { sendStudentRegistrationEmail, sendStudentRegistrationStatusEmail, sendTextPostRequestEmail, sendTextPostRequestStatusEmail, sendImagePostRequestEmail } = require("./sendemail");
 require('dotenv').config();
 const app = express()
 const PORT = 3000;

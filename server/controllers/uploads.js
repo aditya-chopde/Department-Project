@@ -1,7 +1,7 @@
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
-const { adminNewTextData, userNewTextData, adminNewImageEmail, userNewImageEmail } = require("../sendemail")
+const { sendTextPostRequestEmail, sendImagePostRequestEmail } = require("../sendemail");
 
 async function submitImage(req, res) {
     try {
@@ -22,8 +22,7 @@ async function submitImage(req, res) {
             time: new Date()
         })
 
-        adminNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
-        userNewImageEmail(getUser.name, getUser.email, getUser.department, getUser.phone, title, path)
+        sendImagePostRequestEmail(getUser, saveFile)
 
         return res.json({ success: true, message: "File Uploaded Successfully", file: saveFile})
     } catch (err) {
@@ -44,8 +43,7 @@ async function submitText(req, res) {
             user: user,
         })
 
-        adminNewTextData(getUser.name, getUser.email, getUser.department, getUser.year, getUser.phone, title, description);
-        userNewTextData(getUser.name, getUser.email, getUser.department, getUser.year, getUser.phone, title, description);
+        sendTextPostRequestEmail(getUser, createTextData)
 
         return res.json({ success: true, message: "Text Data Added Successfully", data: createTextData, user: getUser });
     } catch (error) {

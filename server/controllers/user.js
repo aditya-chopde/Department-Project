@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt")
 const User = require("../models/user");
 const {sign} = require("../auth");
-const { sendEmailAdminNewLogin } = require("../sendemail");
+const { sendStudentRegistrationEmail } = require("../sendemail");
 const TextData = require("../models/textData");
 const Image = require("../models/image");
 
@@ -19,7 +19,7 @@ async function handleUserSignup(req, res) {
         })
 
         const token = sign(createUser);
-        sendEmailAdminNewLogin(createUser);
+        sendStudentRegistrationEmail(createUser);
         return res.json({ success: true, message: "Request Send Successfully", createUser, token })
 
     } catch (err) {
