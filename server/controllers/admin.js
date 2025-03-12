@@ -8,7 +8,7 @@ async function approveLoginHandler(req, res) {
         const { id } = req.params;
         const approveLogin = await User.findByIdAndUpdate(id, { status: "Approved" });
         sendStudentRegistrationStatusEmail(approveLogin, "Approved")
-        return res.json({ success: true, data: approveLogin })
+        return res.json({ success: true, message: "Approved", data: approveLogin })
     } catch (err) {
         return res.json({ success: false,  message: "Approved Successfully", message: "Error Ocurreed", error: err.message })
     }
@@ -21,7 +21,7 @@ async function rejectLoginHandler(res, res) {
         sendStudentRegistrationStatusEmail(rejectLogin, "Rejected")
         return res.json({ success: true,  message: "Rejected", data: rejectLogin })
     } catch (err) {
-        return res.json({ success: false, message: "Error Ocurreed", error: err.message })
+        return res.json({ success: false, message: "Error Ocurred", error: err.message })
     }
 }
 
