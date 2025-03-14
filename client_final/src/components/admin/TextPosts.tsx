@@ -25,6 +25,28 @@ const TextPosts = () => {
       });
   };
 
+  const approveTextPost = async (id: string) => {
+    await API.post(`/admin/approve-post-text/${id}`)
+      .then((res) => {
+        alert(res.data.message);
+        getTextPostsRequests();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const rejctTextPost = async (id: string) => {
+    await API.post(`/admin/reject-post-text/${id}`)
+      .then((res) => {
+        alert(res.data.message);
+        getTextPostsRequests();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     getTextPostsRequests();
   }, [])
@@ -55,10 +77,12 @@ const TextPosts = () => {
             <div className="my-3">
               {text.status === "Pending" ? (
                 <div className="flex lg:flex-row flex-col gap-3">
-                  <button className="bg-green-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all">
+                  <button className="bg-green-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all"
+                  onClick={()=> approveTextPost(text._id)}>
                     Approve
                   </button>
-                  <button className="bg-red-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all">
+                  <button className="bg-red-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all"
+                  onClick={()=> rejctTextPost(text._id)}>
                     Reject
                   </button>
                 </div>

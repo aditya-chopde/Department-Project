@@ -14,7 +14,7 @@ interface text {
 const ImagePosts = () => {
   const [dataText, setDataText] = useState([]);
 
-  const getTextPostsRequests = async () => {
+  const getImagePostRequests = async () => {
     await API.get("/admin/get-image-data")
       .then((response) => {
         const usersData = response.data.data;
@@ -25,8 +25,30 @@ const ImagePosts = () => {
       });
   };
 
+  const approveImagePost = async (id: string) => {
+    await API.post(`/admin/reject-post/${id}`)
+      .then((res) => {
+        alert(res.data.message);
+        getImagePostRequests();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const rejectimagePost = async (id: string) => {
+    await API.post(`/admin/reject-post/${id}`)
+      .then((res) => {
+        alert(res.data.message);
+        getImagePostRequests();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
-    getTextPostsRequests();
+    getImagePostRequests();
   }, []);
 
   return (
@@ -58,10 +80,12 @@ const ImagePosts = () => {
             <div className="my-3">
               {text.status === "Pending" ? (
                 <div className="flex lg:flex-row flex-col gap-3">
-                  <button className="bg-green-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full">
+                  <button className="bg-green-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full"
+                  onClick={()=> approveImagePost(text._id)}>
                     Approve
                   </button>
-                  <button className="bg-red-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full">
+                  <button className="bg-red-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full"
+                  onClick={()=> rejectimagePost(text._id)}>
                     Reject
                   </button>
                 </div>
