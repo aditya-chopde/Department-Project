@@ -18,8 +18,6 @@ import { Outlet } from "react-router-dom";
 
 export default function Home() {
   const location = useLocation();
-
-  // Split the current path into an array of segments
   const pathSegments = location.pathname
     .split("/")
     .filter((segment) => segment !== "");
@@ -49,9 +47,7 @@ export default function Home() {
                         <>
                           <BreadcrumbSeparator />
                           <BreadcrumbLink asChild>
-                            <Link to={url}>
-                              {decodeURIComponent(segment)}
-                            </Link>
+                            <Link to={url}>{decodeURIComponent(segment)}</Link>
                           </BreadcrumbLink>
                         </>
                       ) : (

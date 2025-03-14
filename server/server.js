@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
     return res.json({ success: true, message: "API Working & Email Sent" })
 })
 
-app.post("/authenticate-admin", async (req, res) => {
+app.post("/api/authenticate-admin", async (req, res) => {
     try {
         const {token} = req.body;
         const verifyToken = verify(token);
@@ -56,7 +56,7 @@ app.post("/authenticate-admin", async (req, res) => {
     }
 })
 
-app.post("/authenticate-user", async (req, res) => {
+app.post("/api/authenticate-user", async (req, res) => {
     try {
         const {token} = req.body;
         if(!token) return res.json({ success: false, message: "Token Not Found" });

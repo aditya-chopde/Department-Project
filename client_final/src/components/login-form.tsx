@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import API from "@/lib/baseUrl";
+import { useNavigate } from "react-router-dom";
 
 export function LoginForm({
   className,
@@ -12,6 +13,7 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +22,8 @@ export function LoginForm({
       await API.post("/admin/admin-login", formData)
         .then((res) => {
           console.log(res.data);
+          localStorage.setItem("token", res.data.token);
+          navigate("/admin-dashboard")
         })
         .catch((error) => {
           console.error(error);

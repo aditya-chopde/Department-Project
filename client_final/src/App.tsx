@@ -7,20 +7,27 @@ import LoginRequests from "./components/admin/LoginRequests";
 import TextPosts from "./components/admin/TextPosts";
 import ImagePosts from "./components/admin/ImagePosts";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
+import AuthGuard from "./lib/CheckAdminAuth";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          {/* Admin Routes */}
+          {/* Public Route (Login Page) */}
           <Route path="/" element={<Login />} />
-          <Route path="/admin-dashboard" element={<Home />}>
-            <Route index element={<LoginRequests />} />
-            <Route path="text-posts" element={<TextPosts />} />
-            <Route path="image-posts" element={<ImagePosts />} />
+
+          {/* Protected Admin Dashboard Routes */}
+          <Route element={<AuthGuard />}>
+            <Route path="/admin-dashboard" element={<Home />}>
+              <Route index element={<LoginRequests />} />
+              <Route path="text-posts" element={<TextPosts />} />
+              <Route path="image-posts" element={<ImagePosts />} />
+            </Route>
           </Route>
+
+          {/* 404 Not Found Route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
