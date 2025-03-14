@@ -1,4 +1,5 @@
 import LoginRequests from "@/components/admin/LoginRequests"
+import TextPosts from "@/components/admin/TextPosts"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -41,7 +42,9 @@ export default function Home() {
             <div className="aspect-video rounded-xl bg-muted/50" />
           </div>
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
-          <LoginRequests/>
+
+          {/* <LoginRequests/> */}
+          <TextPosts/>
         </div>
       </SidebarInset>
     </SidebarProvider>
