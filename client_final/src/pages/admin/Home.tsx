@@ -16,6 +16,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { Outlet } from "react-router-dom"
 
 export default function Home() {
   return (
@@ -46,7 +47,8 @@ export default function Home() {
 
           {/* <LoginRequests/> */}
           {/* <TextPosts/> */}
-          <ImagePosts/>
+          {/* <ImagePosts/> */}
+          <Outlet />
         </div>
       </SidebarInset>
     </SidebarProvider>

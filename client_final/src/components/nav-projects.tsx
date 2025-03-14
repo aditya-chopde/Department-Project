@@ -1,87 +1,61 @@
+import { motion } from "framer-motion"; // Import Framer Motion
 import {
   Folder,
   Forward,
   MoreHorizontal,
   Trash2,
   type LucideIcon,
-} from "lucide-react"
+} from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavProjects({
   projects,
 }: {
   projects: {
-    name: string
-    url: string
-    icon: LucideIcon
-  }[]
+    name: string;
+    url: string;
+    icon: LucideIcon;
+  }[];
 }) {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebar();
+  const location = useLocation();
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      {/* <SidebarGroupLabel>Projects</SidebarGroupLabel> */}
       <SidebarMenu>
-        {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
-            </SidebarMenuButton>
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction showOnHover>
-                  <MoreHorizontal />
-                  <span className="sr-only">More</span>
-                </SidebarMenuAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-48 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
-              >
-                <DropdownMenuItem>
-                  <Folder className="text-muted-foreground" />
-                  <span>View Project</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Forward className="text-muted-foreground" />
-                  <span>Share Project</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
-                  <span>Delete Project</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-          </SidebarMenuItem>
-        ))}
-        {/* <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontal className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem> */}
+        {projects.map((item) => {
+          const isActive = location.pathname === item.url;
+
+          return (
+            <motion.div
+              key={item.name}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link to={item.url} className={`flex items-center gap-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-gray-200 text-black" : "hover:bg-gray-200 dark:hover:bg-gray-800"}`}>
+                    <item.icon />
+                    <motion.span whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                      {item.name}
+                    </motion.span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </motion.div>
+          );
+        })}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

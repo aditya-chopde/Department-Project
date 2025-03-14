@@ -51,17 +51,17 @@ const data = {
   navMain: [
     {
       title: "Posts",
-      url: "#",
+      url: "",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
           title: "Text Posts",
-          url: "#",
+          url: "/admin-dashboard/text-posts",
         },
         {
           title: "Image Posts",
-          url: "#",
+          url: "/admin-dashboard/image-posts",
         },
         {
           title: "Blog Posts",
@@ -137,8 +137,8 @@ const data = {
   ],
   projects: [
     {
-      name: "Login",
-      url: "#",
+      name: "Login Requests",
+      url: "/admin-dashboard",
       icon: Frame,
     },
     // {
