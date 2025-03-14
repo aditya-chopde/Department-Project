@@ -6,6 +6,8 @@ import Home from "./pages/admin/Home";
 import LoginRequests from "./components/admin/LoginRequests";
 import TextPosts from "./components/admin/TextPosts";
 import ImagePosts from "./components/admin/ImagePosts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
+
+      <ToastContainer />
     </>
   );
 }

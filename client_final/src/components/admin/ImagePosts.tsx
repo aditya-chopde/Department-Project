@@ -1,5 +1,6 @@
 import API from "@/lib/baseUrl";
 import { useEffect, useState } from "react";
+import { Bounce, toast } from "react-toastify";
 
 interface text {
   name: string;
@@ -26,26 +27,74 @@ const ImagePosts = () => {
   };
 
   const approveImagePost = async (id: string) => {
-    await API.post(`/admin/reject-post/${id}`)
+    await API.post(`/admin/approve-post/${id}`)
       .then((res) => {
-        alert(res.data.message);
-        getImagePostRequests();
+        if (res.data.success) {
+          toast.success(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          getImagePostRequests();
+        } else {
+          toast.error(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-  const rejectimagePost = async (id: string) => {
+  const rejectImagePost = async (id: string) => {
     await API.post(`/admin/reject-post/${id}`)
       .then((res) => {
-        alert(res.data.message);
-        getImagePostRequests();
+        if (res.data.success) {
+          toast.success(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          getImagePostRequests();
+        } else {
+          toast.error(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   useEffect(() => {
     getImagePostRequests();
@@ -65,11 +114,15 @@ const ImagePosts = () => {
             <div>
               <p>
                 <div className="w-full h-52 bg-gray-300">
-                  <img src={text.path} alt="" className="rounded-md w-full h-full object-cover"/>
+                  <img
+                    src={text.path}
+                    alt=""
+                    className="rounded-md w-full h-full object-cover"
+                  />
                 </div>
-              <h1 className="text-lg mt-3">
-                <strong>{text.title}</strong> 
-              </h1>
+                <h1 className="text-lg mt-3">
+                  <strong>{text.title}</strong>
+                </h1>
               </p>
               <p className="mt-2">
                 <strong>Post By:</strong> <br />
@@ -80,12 +133,16 @@ const ImagePosts = () => {
             <div className="my-3">
               {text.status === "Pending" ? (
                 <div className="flex lg:flex-row flex-col gap-3">
-                  <button className="bg-green-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full"
-                  onClick={()=> approveImagePost(text._id)}>
+                  <button
+                    className="bg-green-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full"
+                    onClick={() => approveImagePost(text._id)}
+                  >
                     Approve
                   </button>
-                  <button className="bg-red-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full"
-                  onClick={()=> rejectimagePost(text._id)}>
+                  <button
+                    className="bg-red-500 text-white px-3 py-2 rounded-sm cursor-pointer hover:-translate-y-1 transition-all w-full"
+                    onClick={() => rejectImagePost(text._id)}
+                  >
                     Reject
                   </button>
                 </div>

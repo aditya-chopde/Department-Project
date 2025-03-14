@@ -1,5 +1,6 @@
 import API from "@/lib/baseUrl";
 import { useEffect, useState } from "react";
+import { Bounce, toast } from "react-toastify";
 
 interface User {
   _id: string;
@@ -30,8 +31,32 @@ const LoginRequests = () => {
   const approveLogin = async (id: string) => {
     await API.post(`/admin/approve-login/${id}`)
       .then((res) => {
-        alert(res.data.message);
-        getLoginRequests();
+        if (res.data.success) {
+          toast.success(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          getLoginRequests();
+        } else {
+          toast.error(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -41,8 +66,32 @@ const LoginRequests = () => {
   const rejectLogin = async (id: string) => {
     await API.post(`/admin/reject-login/${id}`)
       .then((res) => {
-        alert(res.data.message);
-        getLoginRequests();
+        if (res.data.success) {
+          toast.success(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          getLoginRequests();
+        } else {
+          toast.error(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
