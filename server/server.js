@@ -6,6 +6,8 @@ const user = require("./routes/user");
 const uploads = require("./routes/uploads")
 const admin = require("./routes/admin");
 const { verify } = require("./auth");
+const User = require("./models/user");
+const bcrypt = require("bcrypt")
 require('dotenv').config();
 const app = express()
 const PORT = 3000;
@@ -53,6 +55,22 @@ app.post("/authenticate-admin", async (req, res) => {
         return res.json({ success: false, message: "Error Ocurred", error: error.message });
     }
 })
+
+app.post("/authenticate-user", async (req, res) => {
+    try {
+        const {token} = req.body;
+        if(!token) return res.json({ success: false, message: "Token Not Found" });
+        const verifyToken = verify(token);
+        const findEmail = await User.findOne({ email: verifyToken.email });
+        if(!findEmail) return res.json({ success: false, message: "User Not Found" });
+        const isMatch = await bcrypt.compare(verifyToken.password, findEmail.password);
+        if(!isMatch) return res.json({ success: false, message: "Invalid Credentials" });
+
+        return res.json({success: true, message: "User Authenticated", user: findEmail})
+    }catch (error) {
+        return res.json({ success: false, message: "Error Ocurred", error: error.message });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server Started at PORT: ${PORT}`);

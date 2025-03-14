@@ -18,7 +18,7 @@ async function handleUserSignup(req, res) {
             name, email, department, year, phone, password: hash,
         })
 
-        const token = sign(createUser);
+        const token = sign({email, password});
         sendStudentRegistrationEmail(createUser);
         return res.json({ success: true, message: "Request Send Successfully", createUser, token })
 
@@ -41,7 +41,7 @@ async function handleUserLogin(req, res) {
 
         if (!matchPass) return res.json({ sucess: false, message: "something went wrong" })
         if (isApproved===false) return res.json({ sucess: false, message: "Not a Approved Student" })
-        const token = sign(find);
+        const token = sign({email, password});
         return res.json({ success: true, message: "User Found", find, token})
 
     } catch (err) {
