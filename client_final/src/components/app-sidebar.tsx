@@ -1,21 +1,16 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
+  FileText,
   Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
   SquareTerminal,
 } from "lucide-react"
-
+import { User } from "lucide-react"; 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -24,11 +19,10 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Admin",
+    email: "admin@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -52,7 +46,7 @@ const data = {
     {
       title: "Posts",
       url: "",
-      icon: SquareTerminal,
+      icon: FileText,
       isActive: true,
       items: [
         {
@@ -139,7 +133,7 @@ const data = {
     {
       name: "Login Requests",
       url: "/admin-dashboard",
-      icon: Frame,
+      icon: User,
     },
     // {
     //   name: "Sales & Marketing",
