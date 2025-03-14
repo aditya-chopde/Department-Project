@@ -5,6 +5,7 @@ const { connectDb } = require("./connectdb");
 const user = require("./routes/user");
 const uploads = require("./routes/uploads")
 const admin = require("./routes/admin");
+const { verify } = require("./auth");
 require('dotenv').config();
 const app = express()
 const PORT = 3000;
@@ -37,6 +38,20 @@ app.get("/", async (req, res) => {
         status: "Pending"
       })
     return res.json({ success: true, message: "API Working & Email Sent" })
+})
+
+app.post("/authenticate-admin", async (req, res) => {
+    try {
+        const {token} = req.body;
+        const verifyToken = verify(token);
+        if(verifyToken.email === "admin@gmail.com" && verifyToken.password === "admin"){
+            return res.json({ success: true, message: "Admin Authenticated", verifyToken})
+        }else{
+            return res.json({ success: false, message: "Admin Not Authenticated", verifyToken})
+        }
+    } catch (error) {
+        return res.json({ success: false, message: "Error Ocurred", error: error.message });
+    }
 })
 
 app.listen(PORT, () => {
