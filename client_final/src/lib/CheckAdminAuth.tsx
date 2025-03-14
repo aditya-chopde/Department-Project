@@ -14,7 +14,9 @@ const AuthGuard = () => {
       }
 
       try {
-        const response = await API.post("/authenticate-admin", { token });
+        const response = await API.post("/authenticate-admin", { }, {
+            headers: { Authorization: `Bearer ${token}` }, 
+          });
         setIsAuthenticated(response.data.success);
       } catch (error) {
         setIsAuthenticated(false);

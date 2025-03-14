@@ -44,7 +44,7 @@ app.get("/", async (req, res) => {
 
 app.post("/api/authenticate-admin", async (req, res) => {
     try {
-        const {token} = req.body;
+        const token = req.header("Authorization")?.replace("Bearer ", "");
         const verifyToken = verify(token);
         if(verifyToken.email === "admin@gmail.com" && verifyToken.password === "admin"){
             return res.json({ success: true, message: "Admin Authenticated", verifyToken})
@@ -58,7 +58,7 @@ app.post("/api/authenticate-admin", async (req, res) => {
 
 app.post("/api/authenticate-user", async (req, res) => {
     try {
-        const {token} = req.body;
+        const token = req.header("Authorization")?.replace("Bearer ", "");
         if(!token) return res.json({ success: false, message: "Token Not Found" });
         const verifyToken = verify(token);
         const findEmail = await User.findOne({ email: verifyToken.email });
