@@ -157,9 +157,10 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      {/* <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader> */}
+      <SidebarHeader>
+        {/* <TeamSwitcher teams={data.teams} /> */}
+        <h1 className="text-xl font-bold mt-5">Welcome, Admin</h1>
+      </SidebarHeader>
       <SidebarContent>
         <NavProjects projects={data.projects} />
         <NavMain items={data.navMain} />
