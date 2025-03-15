@@ -12,6 +12,7 @@ import UserLogin from "./components/user/UserLogin";
 import AuthGuard from "./lib/CheckAdminAuth";
 import UserSignUp from "./components/user/UserSignUp";
 import HomePage from "./pages/main/HomePage";
+import UserDashboard from "./components/user/UserDashboard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           {/* User Routes  */}
           <Route path="/login" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignUp />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
 
           {/* Protected Admin Dashboard Routes */}
           <Route path="/admin" element={<Login />} />

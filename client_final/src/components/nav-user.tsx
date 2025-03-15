@@ -39,8 +39,8 @@ export function NavUser({
   const navigate = useNavigate();
 
   const logOut = async () =>{
-    localStorage.removeItem("token");
-    navigate("/admin")
+    localStorage.removeItem("tokenUser");
+    navigate("/login")
   }
 
   return (

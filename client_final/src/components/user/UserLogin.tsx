@@ -20,12 +20,16 @@ export default function UserLogin({
     const formData = { email, password };
     try {
       await API.post("/user/login", formData)
-        .then((res) => {
+        .then(async (res) => {
           console.log(res.data);
           alert(res.data.message);
           localStorage.setItem("user", res.data.find._id);
-          localStorage.setItem("token", res.data.token);
-          // navigate("/user-dashboard");
+          console.log(res.data.find.name)
+          console.log(res.data.find.email)
+          localStorage.setItem("userName", res.data.find.name);
+          localStorage.setItem("userEmail", res.data.find.email);
+          localStorage.setItem("tokenToken", res.data.token);
+          navigate("/user-dashboard");
         })
         .catch((error) => {
           console.error(error);
