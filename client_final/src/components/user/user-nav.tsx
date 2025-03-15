@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useNavigate } from "react-router-dom"
 
-export function NavUser({
+export function UserNav({
   user,
 }: {
   user: {
@@ -39,8 +39,8 @@ export function NavUser({
   const navigate = useNavigate();
 
   const logOut = async () =>{
-    localStorage.removeItem("token");
-    navigate("/admin")
+    localStorage.removeItem("tokenUser");
+    navigate("/login")
   }
 
   return (

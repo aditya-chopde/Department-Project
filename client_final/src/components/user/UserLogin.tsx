@@ -28,7 +28,7 @@ export default function UserLogin({
           console.log(res.data.find.email)
           localStorage.setItem("userName", res.data.find.name);
           localStorage.setItem("userEmail", res.data.find.email);
-          localStorage.setItem("tokenToken", res.data.token);
+          localStorage.setItem("tokenUser", res.data.token);
           navigate("/user-dashboard");
         })
         .catch((error) => {

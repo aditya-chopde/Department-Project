@@ -16,6 +16,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { UserNav } from "./user-nav"
 
 const userName = localStorage.getItem("userName") || "";
 const userEmail = localStorage.getItem("userEmail") || "";
@@ -24,7 +25,7 @@ const data = {
   user: {
     name: userName,
     email: userEmail,
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "https://github.com/shadcn.png",
   },
   teams: [
     {
@@ -52,11 +53,11 @@ const data = {
       items: [
         {
           title: "Text Posts",
-          url: "/user-dashboard/text-posts",
+          url: "/user-dashboard",
         },
         {
           title: "Image Posts",
-          url: "/user-dashboard/image-posts",
+          url: "/user-dashboard/get-image-posts",
         },
         {
           title: "Blog Posts",
@@ -70,15 +71,15 @@ const data = {
       icon: BadgePlus,
       items: [
         {
-          title: "Text Post",
-          url: "/user-dashboard/text-posts-add",
+          title: "Add Text Post",
+          url: "/user-dashboard/add-text-posts",
         },
         {
-          title: "Image Post",
-          url: "/user-dashboard/image-posts-add",
+          title: "Add Image Post",
+          url: "/user-dashboard/add-image-posts",
         },
         {
-          title: "Blog Post",
+          title: "Add Blog Post",
           url: "#",
         },
       ],
@@ -161,7 +162,7 @@ export function AppSidebarUser({ ...props }: React.ComponentProps<typeof Sidebar
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <UserNav user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

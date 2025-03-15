@@ -13,6 +13,11 @@ import AuthGuard from "./lib/CheckAdminAuth";
 import UserSignUp from "./components/user/UserSignUp";
 import HomePage from "./pages/main/HomePage";
 import UserDashboard from "./components/user/UserDashboard";
+import AuthGuardUser from "./lib/CheckUserAuth";
+import GetTextPosts from "./components/user/get-text-posts";
+import AddImagePost from "./components/user/add-image-post";
+import AddTextPost from "./components/user/add-text-post";
+import GetImagePost from "./components/user/get-image-post";
 
 function App() {
   return (
@@ -24,7 +29,14 @@ function App() {
           {/* User Routes  */}
           <Route path="/login" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignUp />} />
-          <Route path="/user-dashboard" element={<UserDashboard />} />
+          <Route element={<AuthGuardUser />}>
+            <Route path="/user-dashboard" element={<UserDashboard />}>
+              <Route index element={<GetTextPosts />} />
+              <Route path="get-image-posts" element={<GetImagePost />} />
+              <Route path="add-image-posts" element={<AddImagePost />} />
+              <Route path="add-text-posts" element={<AddTextPost />} />
+            </Route>
+          </Route>
 
           {/* Protected Admin Dashboard Routes */}
           <Route path="/admin" element={<Login />} />
