@@ -8,17 +8,24 @@ import TextPosts from "./components/admin/TextPosts";
 import ImagePosts from "./components/admin/ImagePosts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserLogin from "./components/user/UserLogin";
 import AuthGuard from "./lib/CheckAdminAuth";
+import UserSignUp from "./components/user/UserSignUp";
+import HomePage from "./pages/main/HomePage";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          {/* Public Route (Login Page) */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<HomePage />} />
+
+          {/* User Routes  */}
+          <Route path="/login" element={<UserLogin />} />
+          <Route path="/signup" element={<UserSignUp />} />
 
           {/* Protected Admin Dashboard Routes */}
+          <Route path="/admin" element={<Login />} />
           <Route element={<AuthGuard />}>
             <Route path="/admin-dashboard" element={<Home />}>
               <Route index element={<LoginRequests />} />

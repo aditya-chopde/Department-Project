@@ -3,9 +3,7 @@ import {
   AudioWaveform,
   Command,
   FileText,
-  Frame,
   GalleryVerticalEnd,
-  SquareTerminal,
 } from "lucide-react"
 import { User } from "lucide-react"; 
 import { NavMain } from "@/components/nav-main"

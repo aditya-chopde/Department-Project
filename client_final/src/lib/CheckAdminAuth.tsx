@@ -27,10 +27,10 @@ const AuthGuard = () => {
   }, []);
 
   if (isAuthenticated === null) {
-    return <div>Loading...</div>; // Show a loading state while checking authentication
+    return <div>Loading...</div>; 
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/admin" replace />;
 };
 
 export default AuthGuard;
