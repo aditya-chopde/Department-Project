@@ -22,15 +22,19 @@ const AllPosts = () => {
   const getTextPosts = async () => {
     API.get("/admin/get-text-data").then((res) => {
       const fetchedTextData = res.data.data;
-      const filteredTextPosts = fetchedTextData.filter((item) => item.status === "Approved")
+      const filteredTextPosts = fetchedTextData.filter(
+        (item) => item.status === "Approved"
+      );
       setTextData(filteredTextPosts.reverse());
     });
-};
+  };
 
-const getImagePosts = async () => {
+  const getImagePosts = async () => {
     API.get("/admin/get-image-data").then((res) => {
-        const fetchedImageData = res.data.data;
-        const filteredImagePosts = fetchedImageData.filter((item) => item.status === "Approved")
+      const fetchedImageData = res.data.data;
+      const filteredImagePosts = fetchedImageData.filter(
+        (item) => item.status === "Approved"
+      );
       setImageData(filteredImagePosts.reverse());
     });
   };
@@ -96,16 +100,16 @@ const getImagePosts = async () => {
                 <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
                 <p className="text-gray-300">{post.description}</p>
                 <div className="mt-4 text-sm text-gray-500">
-                <div className="flex flex-row gap-3">
-                      <img
-                        src="https://github.com/shadcn.png"
-                        alt="avthar-image"
-                        className="w-5 rounded-full"
-                      />
-                      <p>
-                        {post.name} | {post.department}
-                      </p>
-                    </div>
+                  <div className="flex flex-row gap-3">
+                    <img
+                      src="https://github.com/shadcn.png"
+                      alt="avthar-image"
+                      className="w-5 rounded-full"
+                    />
+                    <p>
+                      {post.name} | {post.department}
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
