@@ -11,6 +11,7 @@ import AddPostPage from "./pages/AddPostPage";
 import AddImagePage from "./pages/AddImagePage";
 import LoginRequestsPage from "./pages/LoginRequestsPage";
 import AllPosts from "./pages/AllPosts";
+import HeroSection from "./components/home_page/HeroSection";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           {/* Landing Page Routes  */}
           <Route path="/" element={<Home />} />
+          <Route path="/index" element={<HeroSection />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/posts" element={<AllPosts />} />
