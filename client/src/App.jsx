@@ -16,6 +16,7 @@ import HeroSection from "./components/home_page/HeroSection";
 function App() {
   return (
     <>
+    {/* Comment  */}
       <Router>
         <Routes>
           {/* Landing Page Routes  */}
