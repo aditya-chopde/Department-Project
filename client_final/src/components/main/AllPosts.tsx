@@ -73,7 +73,7 @@ const getImagePosts = async () => {
                   alt={post.title}
                   className="w-full h-48 object-cover rounded-sm"
                 />
-                <div className="py-3 px-5">
+                <div className="p-3">
                   <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
                   <p className="text-gray-600">{post.description}</p>
                   <div className="mt-4 text-sm text-gray-500">
