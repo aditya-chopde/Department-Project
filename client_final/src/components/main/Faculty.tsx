@@ -11,8 +11,8 @@ const Faculty = () => {
         <div className="flex flex-col justify-center items-center gap-5">
             <div className="w-28 h-28 bg-white rounded-full"></div>
             <div className="text-center">
-                <h1>Dr. Milind Sarode Sir</h1>
-                <p>HOD, Department of Computer Engineering</p>
+                <h1 className="text-xl font-semibold">Dr. Milind Sarode Sir</h1>
+                <p className="text-gray-500">HOD, Department of Computer Engineering</p>
             </div>
         </div>
         <div className="w-[75%] flex flex-col gap-5">
