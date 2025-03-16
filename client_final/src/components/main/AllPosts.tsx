@@ -1,29 +1,41 @@
 import API from "@/lib/baseUrl";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
-interface TextPosts {
+interface BasePost {
   _id: string;
   title: string;
   description: string;
+  name: string;
+  department: string;
+  status: string;
 }
 
-interface ImagePosts {
-  _id: string;
-  title: string;
-  description: string;
+interface TextPost extends BasePost {
+  type: "text";
 }
+
+interface ImagePost extends BasePost {
+  type: "image";
+  path: string;
+}
+
+type Post = TextPost | ImagePost;
 
 const AllPosts = () => {
-  const [textData, setTextData] = useState([]);
-  const [imageData, setImageData] = useState([]);
+  const [textData, setTextData] = useState<TextPost[]>([]);
+  const [imageData, setImageData] = useState<ImagePost[]>([]);
+  const [final, setFinal] = useState<Post[]>([]);
 
-  const [final, setFinal] = useState([]);
+  // Refs for scroll detection
+  const containerRef = useRef(null);
+  const containerInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   const getTextPosts = async () => {
     API.get("/admin/get-text-data").then((res) => {
       const fetchedTextData = res.data.data;
       const filteredTextPosts = fetchedTextData.filter(
-        (item) => item.status === "Approved"
+        (item: BasePost) => item.status === "Approved"
       );
       setTextData(filteredTextPosts.reverse());
     });
@@ -33,7 +45,7 @@ const AllPosts = () => {
     API.get("/admin/get-image-data").then((res) => {
       const fetchedImageData = res.data.data;
       const filteredImagePosts = fetchedImageData.filter(
-        (item) => item.status === "Approved"
+        (item: BasePost) => item.status === "Approved"
       );
       setImageData(filteredImagePosts.reverse());
     });
@@ -47,46 +59,78 @@ const AllPosts = () => {
   useEffect(() => {
     // Combine both arrays and add a type identifier
     const combinedArray = [
-      ...textData.map((item: TextPosts) => ({ ...item, type: "text" })),
-      ...imageData.map((item: ImagePosts) => ({ ...item, type: "image" })),
+      ...textData.map((item) => ({ ...item, type: "text" as const })),
+      ...imageData.map((item) => ({ ...item, type: "image" as const })),
     ];
 
     // Fisher-Yates shuffle algorithm
-    const shuffleArray = (array: ImagePosts[]) => {
+    const shuffleArray = (array: Post[]) => {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
       return array;
     };
-    // Set the shuffled array to final state
-    setFinal(shuffleArray(combinedArray) as any);
+
+    setFinal(shuffleArray(combinedArray));
   }, [textData, imageData]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <div className="w-[85%] mx-auto my-5">
+    <motion.div 
+      ref={containerRef}
+      className="w-[85%] mx-auto my-5"
+      variants={containerVariants}
+      initial="hidden"
+      animate={containerInView ? "visible" : "hidden"}
+    >
       <div className="columns-1 sm:columns-1 md:columns-2 lg:columns-3 p-4">
-        {final.map((post: any, index: number) => (
-          <div
+        {final.map((post, index) => (
+          <motion.div
             key={index}
-            className="bg-black rounded-lg shadow-md overflow-hidden my-3"
+            variants={itemVariants}
+            className="bg-black rounded-lg shadow-md overflow-hidden my-3 hover:shadow-lg transition-shadow"
+            whileHover={{ y: -5 }}
           >
             {post.type === "image" && (
               <div className="p-3">
-                <img
+                <motion.img
                   src={post.path}
                   alt={post.title}
                   className="w-full h-48 object-cover rounded-sm"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
                 />
                 <div className="p-3">
                   <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
                   <p className="text-gray-600">{post.description}</p>
                   <div className="mt-4 text-sm text-gray-500">
                     <div className="flex flex-row gap-3">
-                      <img
+                      <motion.img
                         src="https://github.com/shadcn.png"
-                        alt="avthar-image"
+                        alt="avatar-image"
                         className="w-5 rounded-full"
+                        whileHover={{ scale: 1.1 }}
                       />
                       <p>
                         {post.name} | {post.department}
@@ -102,10 +146,11 @@ const AllPosts = () => {
                 <p className="text-gray-300">{post.description}</p>
                 <div className="mt-4 text-sm text-gray-500">
                   <div className="flex flex-row gap-3">
-                    <img
+                    <motion.img
                       src="https://github.com/shadcn.png"
-                      alt="avthar-image"
+                      alt="avatar-image"
                       className="w-5 rounded-full"
+                      whileHover={{ scale: 1.1 }}
                     />
                     <p>
                       {post.name} | {post.department}
@@ -114,10 +159,10 @@ const AllPosts = () => {
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
