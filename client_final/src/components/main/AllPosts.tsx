@@ -38,6 +38,7 @@ const AllPosts = () => {
       setImageData(filteredImagePosts.reverse());
     });
   };
+  
   useEffect(() => {
     getTextPosts();
     getImagePosts();
