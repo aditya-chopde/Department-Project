@@ -1,3 +1,4 @@
+const { sign } = require("../auth");
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
@@ -69,9 +70,24 @@ async function getImageDataForAdmin(req, res){
     }
 }
 
+async function handleAdminLogin(req, res){
+    try {
+        const {email, password} = req.body;
+        if(email==="admin@gmail.com" && password==="admin"){
+            const token = sign({email, password});
+            return res.json({success: true, token, message: "Login Successful"});
+        } else {
+            return res.json({success: false, message: "Invalid Credentials"});
+        }   
+    } catch (error) {
+        return res.json({success: false, message: "Error Occurred", error: error.message});
+    }
+}
+
 module.exports = {
     submitImage,
     submitText,
     getTextDataForAdmin,
     getImageDataForAdmin,
+    handleAdminLogin,
 }

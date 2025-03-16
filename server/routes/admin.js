@@ -1,6 +1,6 @@
 const express = require("express")
 const { rejectLoginHandler, approveLoginHandler, rejectPostHandler, approvePostHandler, rejectTextDataHandler, acceptTextDataHandler } = require("../controllers/admin");
-const { getTextDataForAdmin, getImageDataForAdmin } = require("../controllers/uploads");
+const { getTextDataForAdmin, getImageDataForAdmin, handleAdminLogin } = require("../controllers/uploads");
 const router = express()
 
 router.post("/reject-login/:id", rejectLoginHandler);
@@ -11,5 +11,6 @@ router.post("/reject-post-text/:id", rejectTextDataHandler);
 router.post("/approve-post-text/:id", acceptTextDataHandler);
 router.get("/get-text-data", getTextDataForAdmin);
 router.get("/get-image-data", getImageDataForAdmin);
+router.post("/admin-login", handleAdminLogin)
 
 module.exports = router;

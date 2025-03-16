@@ -57,7 +57,7 @@ async function acceptTextDataHandler(req, res) {
         const acceptTextData = await TextData.findByIdAndUpdate(id, { status: "Approved" });
         const getUser = await User.findById(acceptTextData.user);
 
-        sendTextPostRequestStatusEmail(getUser, rejectTextData, "Approved");
+        sendTextPostRequestStatusEmail(getUser, acceptTextData, "Approved");
         return res.json({ success: true, message: "Approved Successfully", data: acceptTextData })
     } catch (err) {
         return res.json({ success: false, message: "Error Ocurreed", error: err.message })
