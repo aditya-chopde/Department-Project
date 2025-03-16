@@ -99,7 +99,7 @@ const AllPosts = () => {
   return (
     <motion.div 
       ref={containerRef}
-      className="w-[85%] mx-auto my-5"
+      className="w-[85%] mx-auto my-5 mt-24"
       variants={containerVariants}
       initial="hidden"
       animate={containerInView ? "visible" : "hidden"}

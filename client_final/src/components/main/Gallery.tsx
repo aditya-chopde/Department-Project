@@ -8,11 +8,11 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
-  { src: importedImages.sample, alt: "Example 1" },
+  { src: importedImages.spidy, alt: "Example 1" },
   { src: importedImages.sample, alt: "Example 2" },
   { src: importedImages.sample, alt: "Example 3" },
-  { src: importedImages.sample, alt: "Example 4" },
-  { src: importedImages.sample, alt: "Example 5" },
+  { src: importedImages.spidy, alt: "Example 4" },
+  { src: importedImages.spidy, alt: "Example 5" },
   { src: importedImages.sample, alt: "Example 6" }
 ];
 
@@ -81,11 +81,6 @@ const Gallery = () => {
                   className="w-full h-auto object-cover rounded-lg"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
-                />
-                <motion.div
-                  className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
                 />
               </motion.div>
             </motion.div>

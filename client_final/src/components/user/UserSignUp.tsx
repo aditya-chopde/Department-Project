@@ -135,7 +135,7 @@ export default function UserSignUp({
                     />
                   </div>
                   <Button type="submit" className="w-full cursor-pointer">
-                    Login
+                    Sign Up
                   </Button>
                 </div>
               </div>

@@ -1,14 +1,27 @@
 import { images } from '@/assets/exports'
 import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
 
 const Navbar = () => {
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      setScrolled(latest > 50);
+    });
+  }, [scrollY]);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-black/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
     >
       <div className="w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -32,7 +45,9 @@ const Navbar = () => {
                 <motion.a
                   key={item}
                   href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                  className="text-gray-300 hover:text-white relative"
+                  className={`relative text-gray-300 hover:text-white transition-colors ${
+                    scrolled ? 'hover:text-white' : 'hover:text-gray-200'
+                  }`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -40,6 +55,10 @@ const Navbar = () => {
                   whileTap={{ y: 0 }}
                 >
                   {item}
+                  <motion.span
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300"
+                    whileHover={{ width: '100%' }}
+                  />
                 </motion.a>
               ))}
             </div>
@@ -51,7 +70,12 @@ const Navbar = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.4 }}
               >
-                <Button variant={'secondary'} className='cursor-pointer'>
+                <Button 
+                  variant={'secondary'} 
+                  className={`cursor-pointer transition-colors ${
+                    scrolled ? 'hover:bg-white/10' : ''
+                  }`}
+                >
                   <Link to={"/login"}>Login</Link>
                 </Button>
               </motion.div>
@@ -60,7 +84,11 @@ const Navbar = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.5 }}
               >
-                <Button className='cursor-pointer'>
+                <Button 
+                  className={`cursor-pointer transition-colors ${
+                    scrolled ? 'hover:bg-white/10' : ''
+                  }`}
+                >
                   <Link to={"/signup"}>Sign Up</Link>
                 </Button>
               </motion.div>
@@ -72,7 +100,9 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <button className="text-gray-300 hover:text-white">
+              <button className={`text-gray-300 hover:text-white transition-colors ${
+                scrolled ? 'hover:text-white' : 'hover:text-gray-200'
+              }`}>
                 <svg
                   className="h-6 w-6"
                   fill="none"
