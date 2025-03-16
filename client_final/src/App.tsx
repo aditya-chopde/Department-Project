@@ -18,6 +18,7 @@ import GetTextPosts from "./components/user/get-text-posts";
 import AddImagePost from "./components/user/add-image-post";
 import AddTextPost from "./components/user/add-text-post";
 import GetImagePost from "./components/user/get-image-post";
+import AllPosts from "./components/main/AllPosts";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/posts" element={<AllPosts />} />
 
           {/* User Routes  */}
           <Route path="/login" element={<UserLogin />} />
