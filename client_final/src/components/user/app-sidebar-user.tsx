@@ -80,7 +80,7 @@ const data = {
         },
         {
           title: "Add Blog Post",
-          url: "#",
+          url: "/user-dashboard/write",
         },
       ],
     },

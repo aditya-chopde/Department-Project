@@ -19,6 +19,7 @@ import AddImagePost from "./components/user/add-image-post";
 import AddTextPost from "./components/user/add-text-post";
 import GetImagePost from "./components/user/get-image-post";
 import Posts from "./pages/main/Posts";
+import WriteBlog from "./pages/WriteBlog";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route path="get-image-posts" element={<GetImagePost />} />
               <Route path="add-image-posts" element={<AddImagePost />} />
               <Route path="add-text-posts" element={<AddTextPost />} />
+              <Route path="write" element={<WriteBlog />} />
             </Route>
           </Route>
 
