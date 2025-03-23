@@ -20,6 +20,8 @@ import AddTextPost from "./components/user/add-text-post";
 import GetImagePost from "./components/user/get-image-post";
 import Posts from "./pages/main/Posts";
 import WriteBlog from "./pages/WriteBlog";
+import GetBlogPosts from "./components/user/get-blog-posts";
+import BlogPosts from "./components/admin/BlogPosts";
 
 function App() {
   return (
@@ -36,6 +38,7 @@ function App() {
             <Route path="/user-dashboard" element={<UserDashboard />}>
               <Route index element={<GetTextPosts />} />
               <Route path="get-image-posts" element={<GetImagePost />} />
+              <Route path="get-blog-posts" element={<GetBlogPosts />} />
               <Route path="add-image-posts" element={<AddImagePost />} />
               <Route path="add-text-posts" element={<AddTextPost />} />
               <Route path="write" element={<WriteBlog />} />
@@ -49,6 +52,7 @@ function App() {
               <Route index element={<LoginRequests />} />
               <Route path="text-posts" element={<TextPosts />} />
               <Route path="image-posts" element={<ImagePosts />} />
+              <Route path="blog-posts" element={<BlogPosts />} />
             </Route>
           </Route>
 

@@ -4,6 +4,7 @@ const {sign} = require("../auth");
 const { sendStudentRegistrationEmail } = require("../sendemail");
 const TextData = require("../models/textData");
 const Image = require("../models/image");
+const BlogData = require("../models/blog");
 
 async function handleUserSignup(req, res) {
     const { name, email, department, year, phone, password } = req.body;
@@ -78,10 +79,21 @@ async function getImageData(req, res){
     }
 }
 
+async function getBlogsData(req, res){
+    try {
+        const {id} = req.params;
+        const getData = await BlogData.find({user: id})
+        return res.json({success: true, message: "All Blogs are Fetched", posts: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: err.message});
+    }
+}
+
 module.exports = {
     handleUserSignup,
     handleUserLogin,
     getUsers,
     getTextData,
     getImageData,
+    getBlogsData,
 }

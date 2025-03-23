@@ -57,7 +57,7 @@ const data = {
         },
         {
           title: "Blog Posts",
-          url: "#",
+          url: "/admin-dashboard/blog-posts",
         },
       ],
     },

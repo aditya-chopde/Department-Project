@@ -22,6 +22,8 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { Input } from "../ui/input";
+import API from "@/lib/baseUrl";
+import { useNavigate } from "react-router-dom";
 
 // Initialize lowlight with common languages
 const lowlight = createLowlight(common);
@@ -189,6 +191,7 @@ const EditorBubbleMenu = ({ editor }: BubbleMenuProps) => {
 };
 
 const BlogEditor = () => {
+  const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const editor = useEditor({
     extensions: [
@@ -238,10 +241,22 @@ const BlogEditor = () => {
     return null;
   }
 
-  const hanlePublish = async (e: { preventDefault: () => void; }) => {
+  const handlePublish = async (e: { preventDefault: () => void; }) => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      alert("Please login to publish a blog post");
+      navigate("/login")
+      return;
+    }
     e.preventDefault();
-    console.log(title);
-    console.log(editor.getHTML());
+    API.post("/upload/blog", {
+      user,
+      title,
+      content: editor.getHTML()
+    }).then((res) => {
+      alert(res.data.message)
+      navigate("/user-dashboard")
+    });
   };
 
   return (
@@ -318,7 +333,7 @@ const BlogEditor = () => {
 
         <div className="mt-4 flex justify-end gap-4">
           <Button variant="outline">Cancel</Button>
-          <Button onClick={hanlePublish}>Publish</Button>
+          <Button onClick={handlePublish}>Publish</Button>
         </div>
       </div>
     </div>

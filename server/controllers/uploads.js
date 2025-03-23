@@ -101,7 +101,7 @@ async function addBlog(req, res) {
         // sendTextPostRequestEmail(getUser, createTextData)
 
         return res.json({ success: true, message: "Blog Added Successfully", data: createBlog, user: getUser });
-    } catch (error) {
+    } catch (err) {
         return res.json({ success: false, message: "Error Occurred", error: err.message });
     }
 }
