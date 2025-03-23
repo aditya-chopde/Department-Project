@@ -1,3 +1,4 @@
+const BlogData = require("../models/blog");
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
@@ -76,6 +77,41 @@ async function rejectTextDataHandler(req, res) {
     }
 }
 
+async function approveBlogHandler(req, res) {
+    try {
+        const { id } = req.params;
+        const acceptTextData = await BlogData.findByIdAndUpdate(id, { status: "Approved" });
+        const getUser = await User.findById(acceptTextData.user);
+
+        // sendTextPostRequestStatusEmail(getUser, acceptTextData, "Approved");
+        return res.json({ success: true, message: "Approved Successfully", data: acceptTextData })
+    } catch (err) {
+        return res.json({ success: false, message: "Error Ocurreed", error: err.message })
+    }
+}
+
+async function rejectBlogHandler(req, res) {
+    try {
+        const { id } = req.params;
+        const acceptTextData = await BlogData.findByIdAndUpdate(id, { status: "Rejected" });
+        const getUser = await User.findById(acceptTextData.user);
+
+        // sendTextPostRequestStatusEmail(getUser, acceptTextData, "Rejected");
+        return res.json({ success: true, message: "Rejected Successfully", data: acceptTextData })
+    } catch (err) {
+        return res.json({ success: false, message: "Error Ocurreed", error: err.message })
+    }
+}
+
+async function getAllBlogs(req, res){
+    try {
+        const getAllBlogs = await BlogData.find();
+        return res.json({ success: true, message: "Data Fetched Successfully", data: getAllBlogs })
+    } catch (error) {
+        return res.json({ success: false, message: "Error Ocurreed", error: err.message })
+    }
+}
+
 module.exports = {
     approveLoginHandler,
     rejectLoginHandler,
@@ -83,4 +119,7 @@ module.exports = {
     rejectPostHandler,
     acceptTextDataHandler,
     rejectTextDataHandler,
+    approveBlogHandler,
+    rejectBlogHandler,
+    getAllBlogs,
 }

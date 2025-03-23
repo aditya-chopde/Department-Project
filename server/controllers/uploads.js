@@ -1,4 +1,5 @@
 const { sign } = require("../auth");
+const BlogData = require("../models/blog");
 const Image = require("../models/image");
 const TextData = require("../models/textData");
 const User = require("../models/user");
@@ -84,10 +85,32 @@ async function handleAdminLogin(req, res){
     }
 }
 
+async function addBlog(req, res) {
+    try {
+        const { user, title, content } = req.body;
+        const getUser = await User.findById(user);
+        const createBlog = await BlogData.create({
+            name: getUser.name,
+            department: getUser.department,
+            year: getUser.year,
+            title: title,
+            content: content,
+            user: user,
+        })
+
+        // sendTextPostRequestEmail(getUser, createTextData)
+
+        return res.json({ success: true, message: "Blog Added Successfully", data: createBlog, user: getUser });
+    } catch (error) {
+        return res.json({ success: false, message: "Error Occurred", error: err.message });
+    }
+}
+
 module.exports = {
     submitImage,
     submitText,
     getTextDataForAdmin,
     getImageDataForAdmin,
     handleAdminLogin,
+    addBlog,
 }
