@@ -10,10 +10,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    department: {
-        type: String,
-        required: true
-    },
     year: {
         type: String,
         required: true,

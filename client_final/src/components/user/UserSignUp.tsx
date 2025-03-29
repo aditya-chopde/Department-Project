@@ -26,6 +26,16 @@ export default function UserSignUp({
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const generateYears = () => {
+    const startYear = 2000;
+    const endYear = new Date().getFullYear() + 1;
+    const years = [];
+    for (let year = startYear; year < endYear; year++) {
+      years.push(`${year}-${year + 1}`);
+    }
+    return years;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = { name, email, department, year, phone, password };
@@ -87,26 +97,17 @@ export default function UserSignUp({
                     />
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="department">Department</Label>
-                    <Input
-                      value={department}
-                      onChange={(e) => setDepartment(e.target.value)}
-                      id="department"
-                      type="text"
-                      placeholder="Computer Science"
-                      required
-                    />
-                  </div>
-                  <div className="grid gap-3">
                     <Label htmlFor="department">Select Year</Label>
                     <Select onValueChange={(e) => setYear(e)} required>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select Year" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="First Year">First Year</SelectItem>
-                        <SelectItem value="Second Year">Second Year</SelectItem>
-                        <SelectItem value="Third Year">Third Year</SelectItem>
+                        {generateYears().map((year) => (
+                          <SelectItem key={year} value={year}>
+                            {year}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
