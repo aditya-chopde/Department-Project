@@ -99,6 +99,15 @@ async function getSingleBlogData(req, res){
     }
 }
 
+async function getApprovedBlogs(req, res){
+    try {
+        const posts = await BlogData.find({status: "Approved"});
+        return res.json({success: true, message: "Blogs Fetched Successfully", posts})
+    } catch (error) {
+        return res.json({success: false, message: "Error Fetching Posts", error: error.message})
+    }
+}
+
 module.exports = {
     handleUserSignup,
     handleUserLogin,
@@ -107,4 +116,5 @@ module.exports = {
     getImageData,
     getBlogsData,
     getSingleBlogData,
+    getApprovedBlogs,
 }

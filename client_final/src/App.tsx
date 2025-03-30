@@ -23,6 +23,7 @@ import WriteBlog from "./pages/WriteBlog";
 import GetBlogPosts from "./components/user/get-blog-posts";
 import BlogPosts from "./components/admin/BlogPosts";
 import ViewBlogPost from "./components/user/view-blog-post";
+import Blogs from "./pages/main/Blogs";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/blogs" element={<Blogs />} />
 
           {/* User Routes  */}
           <Route path="/login" element={<UserLogin />} />
