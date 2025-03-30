@@ -24,6 +24,7 @@ import GetBlogPosts from "./components/user/get-blog-posts";
 import BlogPosts from "./components/admin/BlogPosts";
 import ViewBlogPost from "./components/user/view-blog-post";
 import Blogs from "./pages/main/Blogs";
+import SingleBlogView from "./pages/main/SingleBlogView";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/view/:blogId" element={<SingleBlogView />} />
 
           {/* User Routes  */}
           <Route path="/login" element={<UserLogin />} />

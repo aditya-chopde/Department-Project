@@ -117,4 +117,5 @@ module.exports = {
     getBlogsData,
     getSingleBlogData,
     getApprovedBlogs,
+    getSingleBlogData,
 }
