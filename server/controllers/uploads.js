@@ -95,12 +95,32 @@ async function addBlog(req, res) {
             content: content,
             user: user,
         })
-
+        
         // sendTextPostRequestEmail(getUser, createTextData)
-
+        
         return res.json({ success: true, message: "Blog Added Successfully", data: createBlog, user: getUser });
     } catch (err) {
         return res.json({ success: false, message: "Error Occurred", error: err.message });
+    }
+}
+
+async function getSingleText(req, res){
+    try {
+        const {id} = req.params;
+        const getText = await TextData.findById(id);
+        return res.json({success: true, message: "Data Fetched Successfully", data: getText})
+    } catch (error) {
+        return res.json({success: false, message: "Error Occurred", error: error.message});
+    }
+}
+
+async function getSingleImage(req, res){
+    try {
+        const {id} = req.params;
+        const getImage = await Image.findById(id);
+        return res.json({success: true, message: "Data Fetched Successfully", data: getImage})
+    } catch (error) {
+        return res.json({success: false, message: "Error Occurred", error: error.message});
     }
 }
 
@@ -139,6 +159,7 @@ async function editImageData(req,res){
         return res.json({ success: false, message: "Error Occurred", error: error.message });
     }
 }
+
 async function editBlogData(req, res) {
     try {
         const {id} = req.params;
@@ -166,4 +187,6 @@ module.exports = {
     editTextData,
     editImageData,
     editBlogData,
+    getSingleText,
+    getSingleImage,
 }
