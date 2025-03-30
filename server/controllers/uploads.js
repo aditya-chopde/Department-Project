@@ -13,7 +13,6 @@ async function submitImage(req, res) {
         const getUser = await User.findById(user);
         const saveFile = await Image.create({
             name: getUser.name,
-            department: getUser.department,
             year: getUser.year,
             title: title,
             originalName: originalname,
@@ -105,6 +104,58 @@ async function addBlog(req, res) {
     }
 }
 
+async function editTextData(req,res){
+    try {
+        const {id} = req.params;
+        const { user, title, content } = req.body;
+        const context = {
+            user, title, content
+        }
+        const editedPost = await TextData.findByIdAndUpdate(id, context, {new: true, runValidators: true});
+        return res.json({success: true, message: "TextData Updated Successfully", data: editedPost});
+    } catch (error) {
+        return res.json({ success: false, message: "Error Occurred", error: error.message });
+    }
+}
+
+async function editImageData(req,res){
+    try {
+        const {id} = req.params;
+        const { title, user, file_image } = req.body;
+        const {originalname, filename, size} = req.file;
+        const path = `http://localhost:3000/uploads/${filename}`
+        const context = {
+            title: title,
+            originalName: originalname,
+            fileName: filename,
+            path: path,
+            size: size,
+            user: user,
+            time: new Date()
+        }
+        const editedPost = await Image.findByIdAndUpdate(id, context, {new: true, runValidators: true});
+        return res.json({success: true, message: "TextData Updated Successfully", data: editedPost});
+    } catch (error) {
+        return res.json({ success: false, message: "Error Occurred", error: error.message });
+    }
+}
+async function editBlogData(req, res) {
+    try {
+        const {id} = req.params;
+        const { user, title, content } = req.body;
+        const context = {
+            title: title,
+            content: content,
+            user: user,
+        }
+
+        const editedPost = await BlogData.findByIdAndUpdate(id, context, {new: true, runValidators: true});
+        return res.json({success: true, message: "TextData Updated Successfully", data: editedPost});
+    } catch (err) {
+        return res.json({ success: false, message: "Error Occurred", error: err.message });
+    }
+}
+
 module.exports = {
     submitImage,
     submitText,
@@ -112,4 +163,7 @@ module.exports = {
     getImageDataForAdmin,
     handleAdminLogin,
     addBlog,
+    editTextData,
+    editImageData,
+    editBlogData,
 }
