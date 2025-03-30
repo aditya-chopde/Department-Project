@@ -89,6 +89,16 @@ async function getBlogsData(req, res){
     }
 }
 
+async function getSingleBlogData(req, res){
+    try {
+        const {id} = req.params;
+        const getData = await BlogData.findById(id)
+        return res.json({success: true, message: "All Blogs are Fetched", post: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: err.message});
+    }
+}
+
 module.exports = {
     handleUserSignup,
     handleUserLogin,
@@ -96,4 +106,5 @@ module.exports = {
     getTextData,
     getImageData,
     getBlogsData,
+    getSingleBlogData,
 }

@@ -17,11 +17,14 @@ const AddTextPost = () => {
       const formData = { user, title, description };
       await API.post("/upload/textdata", formData).then((res) => {
         alert(res.data.message);
-        console.log(res);
+        navigate("/user-dashboard", { replace: true });
+        setTitle("");
+        setDescription("");
       });
     } catch (error) {
       if (error instanceof Error) {
         alert("Error Ocurred: " + error.message);
+        console.log(error.message)
       } else {
         alert("An unknown error occurred");
       }

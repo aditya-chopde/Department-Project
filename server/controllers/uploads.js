@@ -38,7 +38,6 @@ async function submitText(req, res) {
         const getUser = await User.findById(user);
         const createTextData = await TextData.create({
             name: getUser.name,
-            department: getUser.department,
             year: getUser.year,
             title: title,
             description: description,
@@ -48,7 +47,7 @@ async function submitText(req, res) {
         sendTextPostRequestEmail(getUser, createTextData)
 
         return res.json({ success: true, message: "Text Data Added Successfully", data: createTextData, user: getUser });
-    } catch (error) {
+    } catch (err) {
         return res.json({ success: false, message: "Error Occurred", error: err.message });
     }
 }

@@ -22,6 +22,7 @@ import Posts from "./pages/main/Posts";
 import WriteBlog from "./pages/WriteBlog";
 import GetBlogPosts from "./components/user/get-blog-posts";
 import BlogPosts from "./components/admin/BlogPosts";
+import ViewBlogPost from "./components/user/view-blog-post";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
               <Route path="add-image-posts" element={<AddImagePost />} />
               <Route path="add-text-posts" element={<AddTextPost />} />
               <Route path="write" element={<WriteBlog />} />
+              <Route path="view/:slug" element={<ViewBlogPost />} />
             </Route>
           </Route>
 

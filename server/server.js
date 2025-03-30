@@ -7,7 +7,8 @@ const uploads = require("./routes/uploads")
 const admin = require("./routes/admin");
 const { verify } = require("./auth");
 const User = require("./models/user");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const { sendImagePostRequestEmail } = require("./sendemail");
 require('dotenv').config();
 const app = express()
 const PORT = 3000;

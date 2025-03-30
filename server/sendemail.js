@@ -725,7 +725,7 @@ const sendImagePostRequestStatusEmail = async (user, post, status) => {
 // Example usage
 module.exports = {
     sendStudentRegistrationEmail, // Test Success
-    sendStudentRegistrationStatusEmail, // Test Success
+sendStudentRegistrationStatusEmail, // Test Succes
     sendTextPostRequestEmail, // Test Success
     sendTextPostRequestStatusEmail, // Test Success
     sendImagePostRequestEmail, // Test Success

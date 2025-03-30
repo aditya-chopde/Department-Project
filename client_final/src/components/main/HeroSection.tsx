@@ -2,6 +2,7 @@ import { images } from '@/assets/exports'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Button } from '../ui/button'
 
 const HeroSection = () => {
   return (
@@ -31,11 +32,11 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white border text-black px-8 py-3 rounded-lg w-fit cursor-pointer hover:bg-black hover:border hover:text-white transition-colors"
+            className='text-left'
           >
+            <Button>
             <Link to={"/signup"}>Get Started</Link>
+            </Button>
           </motion.button>
         </div>
         <motion.div 

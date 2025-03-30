@@ -33,7 +33,7 @@ const Navbar = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <img
-                className="h-8 w-auto invert"
+                className="h-12 w-auto invert"
                 src={images.logo}
                 alt="Logo"
               />
