@@ -177,6 +177,36 @@ async function editBlogData(req, res) {
     }
 }
 
+async function deleteText(req, res){
+    try {
+        const {id} = req.params;
+        const deleteTextData = await TextData.findByIdAndDelete(id, {new: true, runValidators: true})  
+        return res.json({success: true, message: "TextPost Deleted Successfully", post: deleteTextData})      
+    } catch (error) {
+        return res.json({ success: false, message: "Error Occurred", error: err.message });
+    }
+}
+
+async function deleteImage(req, res){
+    try {
+        const {id} = req.params;
+        const deleteImage = await Image.findByIdAndDelete(id, {new: true, runValidators: true})  
+        return res.json({success: true, message: "Image Deleted Successfully", post: deleteImage})      
+    } catch (error) {
+        return res.json({ success: false, message: "Error Occurred", error: err.message });
+    }
+}
+
+async function deleteBlog(req, res){
+    try {
+        const {id} = req.params;
+        const deleteBlog = await BlogData.findByIdAndDelete(id, {new: true, runValidators: true})  
+        return res.json({success: true, message: "Blog Deleted Successfully", post: deleteBlog})      
+    } catch (error) {
+        return res.json({ success: false, message: "Error Occurred", error: err.message });
+    }
+}
+
 module.exports = {
     submitImage,
     submitText,
@@ -189,4 +219,7 @@ module.exports = {
     editBlogData,
     getSingleText,
     getSingleImage,
+    deleteText,
+    deleteImage,
+    deleteBlog,
 }

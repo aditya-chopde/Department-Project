@@ -29,6 +29,6 @@ const textDataSchema = new mongoose.Schema({
     timestamps: true,
 })
 
-const TextData = mongoose.model("textData", textDataSchema);
+const TextData = mongoose.models.task || mongoose.model("textData", textDataSchema);
 
 module.exports = TextData;

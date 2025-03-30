@@ -33,6 +33,6 @@ const blogDataSchema = new mongoose.Schema({
     timestamps: true,
 })
 
-const BlogData = mongoose.model("blogData", blogDataSchema);
+const BlogData = mongoose.models.task || mongoose.model("blogData", blogDataSchema);
 
 module.exports = BlogData;

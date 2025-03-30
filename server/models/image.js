@@ -44,6 +44,6 @@ const imageSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-const Image = mongoose.model("image-data", imageSchema)
+const Image = mongoose.models.task || mongoose.model("image-data", imageSchema)
 
 module.exports = Image;
