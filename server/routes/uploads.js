@@ -14,7 +14,7 @@ router.get("/get-single-image/:id", getSingleImage);
 
 // Edit Routes
 router.post("/textdata/edit/:id", editTextData);
-router.post("/imagedata/edit/:id", editImageData);
+router.post("/imagedata/edit/:id", upload.single("file_image"), editImageData); 
 router.post("/blogdata/edit/:id", editBlogData);
 
 // Delete Routes

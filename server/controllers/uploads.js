@@ -127,9 +127,9 @@ async function getSingleImage(req, res){
 async function editTextData(req,res){
     try {
         const {id} = req.params;
-        const { user, title, content } = req.body;
+        const { user, title, description } = req.body;
         const context = {
-            user, title, content
+            user, title, description
         }
         const editedPost = await TextData.findByIdAndUpdate(id, context, {new: true, runValidators: true});
         return res.json({success: true, message: "TextData Updated Successfully", data: editedPost});
@@ -154,7 +154,7 @@ async function editImageData(req,res){
             time: new Date()
         }
         const editedPost = await Image.findByIdAndUpdate(id, context, {new: true, runValidators: true});
-        return res.json({success: true, message: "TextData Updated Successfully", data: editedPost});
+        return res.json({success: true, message: "Image Updated Successfully", data: editedPost});
     } catch (error) {
         return res.json({ success: false, message: "Error Occurred", error: error.message });
     }

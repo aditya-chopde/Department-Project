@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 
 interface Post {
   _id: string;
@@ -22,6 +23,7 @@ const GetTextPosts = () => {
   const [data, setData] = useState<Post[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState<string | null>(null);
+  const navigate = useNavigate();
   const user = localStorage.getItem("user");
 
   async function getTextData() {
@@ -66,7 +68,7 @@ const GetTextPosts = () => {
               <Button variant={item.status === "Rejected" ? "destructive" : "success"}>{item.status}</Button>
 
               <div className="flex flex-row gap-2 justify-center items-center">
-                <Button variant={"secondary"} className="cursor-pointer bg-[#1A1A1F] hover:bg-[#292930] transition-all ease-in p-3 rounded-full">
+                <Button variant={"secondary"} className="cursor-pointer bg-[#1A1A1F] hover:bg-[#292930] transition-all ease-in p-3 rounded-full" onClick={()=> navigate(`/user-dashboard/edit/text/${item._id}`)}>
                   <Pencil size={20} />
                 </Button>
                 <Button variant={"destructive"}

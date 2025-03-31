@@ -1,7 +1,7 @@
 import API from "@/lib/baseUrl";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Pencil, Trash2 } from "lucide-react";
 import {
   Dialog,
@@ -14,6 +14,7 @@ import {
 
 const GetBlogPosts = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const user = localStorage.getItem("user");
@@ -81,6 +82,7 @@ const GetBlogPosts = () => {
                   <Button
                     variant={"secondary"}
                     className="cursor-pointer bg-[#1A1A1F] hover:bg-[#292930] transition-all ease-in p-3 rounded-full"
+                    onClick={()=> navigate(`/user-dashboard/edit/blog/${item._id}`)}
                   >
                     <Pencil size={20} />
                   </Button>

@@ -10,10 +10,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 
 const GetImagePost = () => {
   const [data, setData] = useState([]);
   const user = localStorage.getItem("user") || "";
+  const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   async function getImageData() {
@@ -75,6 +77,7 @@ const GetImagePost = () => {
                   <Button
                     variant={"secondary"}
                     className="cursor-pointer bg-[#1A1A1F] hover:bg-[#292930] transition-all ease-in p-3 rounded-full"
+                    onClick={()=> navigate(`/user-dashboard/edit/image/${item._id}`)}
                   >
                     <Pencil size={20} />
                   </Button>
