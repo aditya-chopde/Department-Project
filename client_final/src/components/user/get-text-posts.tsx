@@ -39,9 +39,12 @@ const GetTextPosts = () => {
 
   const handleDeletePost = async () => {
     try {
-      await API.delete(`/user/delete-text-data/${postToDelete}`);
-      setData(data.filter((item) => item._id !== postToDelete));
-      setIsDialogOpen(false);
+      await API.post(`/upload/delete-text/${postToDelete}`).then((res)=>{
+        getTextData();
+        console.log(res)
+        alert(res.data.message)
+        setIsDialogOpen(false);
+      });
     } catch (error) {
       alert("An Error Ocurred: " + (error as Error).message);
     }

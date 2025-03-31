@@ -16,6 +16,7 @@ const GetBlogPosts = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState("")
 
   const user = localStorage.getItem("user");
 
@@ -44,6 +45,19 @@ const GetBlogPosts = () => {
     }
     return text;
   }
+
+  const handleDeletePost = async () => {
+    try {
+      await API.post(`/upload/delete-blog/${postToDelete}`).then((res)=>{
+        getTextData();
+        console.log(res)
+        alert(res.data.message)
+        setIsDialogOpen(false);
+      });
+    } catch (error) {
+      alert("An Error Ocurred: " + (error as Error).message);
+    }
+  };
 
   return (
     <div className="mx-10 my-5">
@@ -90,7 +104,7 @@ const GetBlogPosts = () => {
                     variant={"destructive"}
                     className="cursor-pointer bg-red-500 hover:bg-red-400 transition-all ease-in p-3 rounded-full"
                     onClick={() => {
-                      // setPostToDelete(item._id);
+                      setPostToDelete(item._id);
                       setIsDialogOpen(true);
                     }}
                   >
@@ -119,7 +133,7 @@ const GetBlogPosts = () => {
             <Button
               type="submit"
               variant={"destructive"}
-              // onClick={handleDeletePost}
+              onClick={handleDeletePost}
             >
               <Trash2 />
               Delete

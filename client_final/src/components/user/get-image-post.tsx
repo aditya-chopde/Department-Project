@@ -17,6 +17,7 @@ const GetImagePost = () => {
   const user = localStorage.getItem("user") || "";
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState("")
 
   async function getImageData() {
     try {
@@ -28,6 +29,18 @@ const GetImagePost = () => {
       alert("An Error Ocurred: " + (error as any).message);
     }
   }
+
+  const handleDeletePost = async () => {
+    try {
+      await API.post(`/upload/delete-image/${postToDelete}`).then((res)=>{
+        setIsDialogOpen(false);
+        alert(res.data.message);
+        getImageData();
+      });
+    } catch (error) {
+      alert("An Error Ocurred: " + (error as Error).message);
+    }
+  };
 
   useEffect(() => {
     getImageData();
@@ -85,7 +98,7 @@ const GetImagePost = () => {
                     variant={"destructive"}
                     className="cursor-pointer bg-red-500 hover:bg-red-400 transition-all ease-in p-3 rounded-full"
                     onClick={() => {
-                      // setPostToDelete(item._id);
+                      setPostToDelete(item._id)
                       setIsDialogOpen(true);
                     }}
                   >
@@ -114,7 +127,7 @@ const GetImagePost = () => {
             <Button
               type="submit"
               variant={"destructive"}
-              // onClick={handleDeletePost}
+              onClick={handleDeletePost}
             >
               <Trash2 />
               Delete
