@@ -2,9 +2,20 @@ import API from "@/lib/baseUrl";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { Pencil, Trash2 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const GetBlogPosts = () => {
   const [data, setData] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const user = localStorage.getItem("user");
 
   async function getTextData() {
@@ -46,21 +57,74 @@ const GetBlogPosts = () => {
           }) => (
             <div
               key={item._id}
-              className="border-2 rounded-sm border-md p-5 flex flex-row gap-5 justify-between w-full"
+              className="border-2 rounded-sm border-md p-5 flex flex-row gap-5 justify-between items-end w-full"
             >
-              <Link to={`/user-dashboard/view/${item._id}`} className="flex flex-row gap-5 justify-between w-full">
+              <Link
+                to={`/user-dashboard/view/${item._id}`}
+                className="flex flex-row gap-5 justify-between w-full"
+              >
                 <div>
                   <h1 className="font-bold text-xl">{item.title}</h1>
                   <p>{stripHtml(item.content, 30)}</p>
                 </div>
-                <div className="mt-5">
-                  <Button>{item.status}</Button>
-                </div>
               </Link>
+              <div className="mt-5 flex flex-row gap-3 justify-between items-center">
+                <Button
+                  variant={
+                    item.status === "Rejected" ? "destructive" : "success"
+                  }
+                >
+                  {item.status}
+                </Button>
+
+                <div className="flex flex-row gap-2 justify-center items-center">
+                  <Button
+                    variant={"secondary"}
+                    className="cursor-pointer bg-[#1A1A1F] hover:bg-[#292930] transition-all ease-in p-3 rounded-full"
+                  >
+                    <Pencil size={20} />
+                  </Button>
+                  <Button
+                    variant={"destructive"}
+                    className="cursor-pointer bg-red-500 hover:bg-red-400 transition-all ease-in p-3 rounded-full"
+                    onClick={() => {
+                      // setPostToDelete(item._id);
+                      setIsDialogOpen(true);
+                    }}
+                  >
+                    <Trash2 size={20} />
+                  </Button>
+                </div>
+              </div>
             </div>
           )
         )}
       </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. Are you sure you want to permanently
+              delete this file from our servers?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant={"outline"} onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant={"destructive"}
+              // onClick={handleDeletePost}
+            >
+              <Trash2 />
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
