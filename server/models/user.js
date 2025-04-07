@@ -10,10 +10,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    department: {
-        type: String,
-        required: true
-    },
     year: {
         type: String,
         required: true,
@@ -37,6 +33,6 @@ const userSchema = new mongoose.Schema({
     
 })
 
-const User = mongoose.model("user", userSchema)
+const User = mongoose.models.task || mongoose.model("user", userSchema)
 
 module.exports = User;

@@ -1,16 +1,17 @@
-import API from "@/lib/baseUrl";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Input } from "../ui/input";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
+import API from "@/lib/baseUrl";
 
-const AddImagePost = () => {
+const EditImagePost = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const user = localStorage.getItem("user") || "";
+  const {imageId} = useParams();
   const navigate = useNavigate();
 
-  async function handleImagePost(e: { preventDefault: () => void }) {
+  const handleEditImage = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (!image) {
@@ -24,18 +25,30 @@ const AddImagePost = () => {
     formData.append("file_image", image);
 
     try {
-      const res = await API.post("/upload/images", formData, {
+      const res = await API.post(`/upload/imagedata/edit/${imageId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      console.log(res.data);
       alert(res.data.message);
-      console.log(res);
       navigate("/user-dashboard/get-image-posts");
     } catch (err) {
       console.log("Error Occurred: " + (err as any).message);
     }
+  };
 
-    console.log("Submitted");
+  const fetchData = async () =>{
+    API.get(`/upload/get-single-image/${imageId}`).then((res)=>{
+      console.log(res.data)
+      setTitle(res.data.data.title)
+      // setImage(res.data.data.description)
+    }).catch((err)=>{
+      alert("Error Occurred: " + err.message)
+    })
   }
+
+  useEffect(()=>{
+    fetchData();
+  }, [])
 
   return (
     <div className="flex flex-col justify-center items-center my-20">
@@ -44,7 +57,7 @@ const AddImagePost = () => {
           <h1 className="font-bold text-2xl">Add Image</h1>
         </div>
         <div>
-          <form onSubmit={handleImagePost}>
+          <form onSubmit={handleEditImage}>
             <fieldset className="fieldset my-2">
               <legend className="fieldset-legend">Enter Title: </legend>
               <Input
@@ -66,7 +79,7 @@ const AddImagePost = () => {
                     setImage(e.target.files[0]);
                   }
                 }}
-                accept="image/*" 
+                accept="image/*"
               />
             </fieldset>
             <div>
@@ -79,4 +92,4 @@ const AddImagePost = () => {
   );
 };
 
-export default AddImagePost;
+export default EditImagePost;

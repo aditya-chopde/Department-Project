@@ -22,6 +22,12 @@ import Posts from "./pages/main/Posts";
 import WriteBlog from "./pages/WriteBlog";
 import GetBlogPosts from "./components/user/get-blog-posts";
 import BlogPosts from "./components/admin/BlogPosts";
+import ViewBlogPost from "./components/user/view-blog-post";
+import Blogs from "./pages/main/Blogs";
+import SingleBlogView from "./pages/main/SingleBlogView";
+import EditTextPost from "./components/user/edit-text-post";
+import EditImagePost from "./components/user/edit-image-post";
+import EditBlogPost from "./components/user/edit-blog-post";
 
 function App() {
   return (
@@ -30,6 +36,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/view/:blogId" element={<SingleBlogView />} />
 
           {/* User Routes  */}
           <Route path="/login" element={<UserLogin />} />
@@ -42,6 +50,10 @@ function App() {
               <Route path="add-image-posts" element={<AddImagePost />} />
               <Route path="add-text-posts" element={<AddTextPost />} />
               <Route path="write" element={<WriteBlog />} />
+              <Route path="view/:slug" element={<ViewBlogPost />} />
+              <Route path="edit/text/:textId" element={<EditTextPost />} />
+              <Route path="edit/image/:imageId" element={<EditImagePost />} />
+              <Route path="edit/blog/:editBlogId" element={<EditBlogPost />} />
             </Route>
           </Route>
 

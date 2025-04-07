@@ -5,10 +5,6 @@ const textDataSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    department: {
-        type: String,
-        required: true,
-    },
     year: {
         type: String,
         required: true,
@@ -33,6 +29,6 @@ const textDataSchema = new mongoose.Schema({
     timestamps: true,
 })
 
-const TextData = mongoose.model("textData", textDataSchema);
+const TextData = mongoose.models.task || mongoose.model("textData", textDataSchema);
 
 module.exports = TextData;

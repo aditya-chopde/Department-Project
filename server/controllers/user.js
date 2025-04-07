@@ -7,7 +7,7 @@ const Image = require("../models/image");
 const BlogData = require("../models/blog");
 
 async function handleUserSignup(req, res) {
-    const { name, email, department, year, phone, password } = req.body;
+    const { name, email, year, phone, password } = req.body;
     try {
         const exists = await User.findOne({ email })
         if (exists) return res.json({ success: false, message: "User already exists", action: "Got to the login page" })
@@ -16,7 +16,7 @@ async function handleUserSignup(req, res) {
         const hash = await bcrypt.hash(password, salt)
 
         const createUser = await User.create({
-            name, email, department, year, phone, password: hash,
+            name, email, year, phone, password: hash,
         })
 
         const token = sign({email, password});
@@ -89,6 +89,25 @@ async function getBlogsData(req, res){
     }
 }
 
+async function getSingleBlogData(req, res){
+    try {
+        const {id} = req.params;
+        const getData = await BlogData.findById(id)
+        return res.json({success: true, message: "All Blogs are Fetched", post: getData});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: err.message});
+    }
+}
+
+async function getApprovedBlogs(req, res){
+    try {
+        const posts = await BlogData.find({status: "Approved"});
+        return res.json({success: true, message: "Blogs Fetched Successfully", posts})
+    } catch (error) {
+        return res.json({success: false, message: "Error Fetching Posts", error: error.message})
+    }
+}
+
 module.exports = {
     handleUserSignup,
     handleUserLogin,
@@ -96,4 +115,7 @@ module.exports = {
     getTextData,
     getImageData,
     getBlogsData,
+    getSingleBlogData,
+    getApprovedBlogs,
+    getSingleBlogData,
 }

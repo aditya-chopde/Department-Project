@@ -8,7 +8,8 @@ interface BasePost {
   description: string;
   name: string;
   department: string;
-  status: string;
+  status: string,
+  year: string;
 }
 
 interface TextPost extends BasePost {
@@ -133,7 +134,7 @@ const AllPosts = () => {
                         whileHover={{ scale: 1.1 }}
                       />
                       <p>
-                        {post.name} | {post.department}
+                        {post.name} | {post.year}
                       </p>
                     </div>
                   </div>
@@ -153,7 +154,7 @@ const AllPosts = () => {
                       whileHover={{ scale: 1.1 }}
                     />
                     <p>
-                      {post.name} | {post.department}
+                      {post.name} | {post.year}
                     </p>
                   </div>
                 </div>

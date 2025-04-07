@@ -38,7 +38,7 @@ const sendStudentRegistrationEmail = async (user) => {
                 <div class="details">
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                     <p><strong>Status:</strong> ${user.status}</p>
@@ -79,7 +79,7 @@ const sendStudentRegistrationEmail = async (user) => {
                 <div class="details">
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                     <p><strong>Status:</strong> ${user.status}</p>
@@ -153,7 +153,7 @@ const sendStudentRegistrationStatusEmail = async (user, status) => {
                 <div class="details">
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                     <p><strong>Status:</strong> ${status}</p>
@@ -194,7 +194,7 @@ const sendStudentRegistrationStatusEmail = async (user, status) => {
                 <div class="details">
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                     <p><strong>Status:</strong> ${status}</p>
@@ -273,7 +273,7 @@ const sendTextPostRequestEmail = async (user, post) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -318,7 +318,7 @@ const sendTextPostRequestEmail = async (user, post) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -396,7 +396,7 @@ const sendTextPostRequestStatusEmail = async (user, post, status) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -441,7 +441,7 @@ const sendTextPostRequestStatusEmail = async (user, post, status) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -519,7 +519,7 @@ const sendImagePostRequestEmail = async (user, post) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -564,7 +564,7 @@ const sendImagePostRequestEmail = async (user, post) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -642,7 +642,7 @@ const sendImagePostRequestStatusEmail = async (user, post, status) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -687,7 +687,7 @@ const sendImagePostRequestStatusEmail = async (user, post, status) => {
                     <h2>Post Author: </h2>
                     <p><strong>Name:</strong> ${user.name}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Department:</strong> ${user.department}</p>
+                     
                     <p><strong>Phone:</strong> ${user.phone}</p>
                     <p><strong>Year:</strong> ${user.year}</p>
                 </div>
@@ -725,7 +725,7 @@ const sendImagePostRequestStatusEmail = async (user, post, status) => {
 // Example usage
 module.exports = {
     sendStudentRegistrationEmail, // Test Success
-    sendStudentRegistrationStatusEmail, // Test Success
+sendStudentRegistrationStatusEmail, // Test Succes
     sendTextPostRequestEmail, // Test Success
     sendTextPostRequestStatusEmail, // Test Success
     sendImagePostRequestEmail, // Test Success
