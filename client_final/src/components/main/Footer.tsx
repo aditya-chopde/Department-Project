@@ -4,7 +4,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <div>
-      <div className="mt-20 py-8">
+      <div className="mt-20 py-8 bg-gradient-to-r from-[#040b14] to-[#031a2f] text-white">
         <div className="w-[80%] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           {/* Logo */}
           <div className="w-16">

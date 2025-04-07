@@ -44,7 +44,7 @@ const Gallery = () => {
   };
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 bg-gradient-to-r from-[#040b14] to-[#031a2f] text-white py-10">
       <div className="w-[80%] mx-auto my-5">
         <motion.h1 
           ref={titleRef}

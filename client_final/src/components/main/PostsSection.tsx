@@ -86,7 +86,7 @@ const PostsSection = () => {
       </motion.div>
       
       <div>
-        <div className="w-[75%] mx-auto my-5">
+        <div className="w-[75%] mx-auto my-5 bg-gradient-to-r from-[#040b14] to-[#031a2f] text-white p-10 rounded-lg">
           <motion.div 
             ref={textPostsRef}
             className="grid grid-cols-1 md:grid-cols-3 gap-4"

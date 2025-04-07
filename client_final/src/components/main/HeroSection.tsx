@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 const HeroSection = () => {
   return (
-    <div className="relative overflow-hidden pt-10">
+    <div className="relative overflow-hidden pt-10 bg-gradient-to-r from-[#040b14] to-[#031a2f] text-white">
       {/* Background blur effect */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[128px] -translate-y-1/2 translate-x-1/2" />
       

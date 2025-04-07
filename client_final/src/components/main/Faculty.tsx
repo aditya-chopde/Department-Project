@@ -13,9 +13,9 @@ const Faculty = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -24,46 +24,49 @@ const Faculty = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   return (
-    <div className="w-[80%] mx-auto mt-20">
+    <div className="w-[80%] mx-auto mt-20 bg-gradient-to-r from-[#040b14] to-[#031a2f] text-white p-10 rounded-lg">
+      {/* HOD Section */}
       <motion.div
         ref={hodRef}
         initial={{ opacity: 0, y: 20 }}
         animate={hodInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl">HOD's Message</h1>
+        <h1 className="text-4xl font-bold text-center mb-6">HOD's Message</h1>
       </motion.div>
-      
-      <motion.div 
-        className="flex flex-row justify-center items-center gap-10 my-10"
+
+      <motion.div
+        className="flex flex-col md:flex-row justify-center items-center gap-10 my-10"
         initial={{ opacity: 0, y: 20 }}
         animate={hodInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <motion.div 
+        {/* HOD Image */}
+        <motion.div
           className="flex flex-col justify-center items-center gap-5"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <motion.div 
+          <motion.div
             className="w-28 h-28 bg-white rounded-full"
             whileHover={{ rotate: 360 }}
             transition={{ duration: 0.5 }}
           />
           <div className="text-center">
-            <h1 className="text-xl font-semibold">Dr. Milind Sarode Sir</h1>
-            <p className="text-gray-500">HOD, Department of Computer Engineering</p>
+            <h1 className="text-xl font-semibold">Dr. Milind Sarode</h1>
+            <p className="text-gray-400">HOD, Computer Engineering</p>
           </div>
         </motion.div>
 
-        <motion.div 
-          className="w-[75%] flex flex-col gap-5"
+        {/* HOD Message */}
+        <motion.div
+          className="w-[90%] md:w-[75%] flex flex-col gap-5 bg-[#0a192f] p-6 rounded-lg shadow-lg"
           initial={{ opacity: 0, x: 20 }}
           animate={hodInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -86,42 +89,24 @@ const Faculty = () => {
             <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
             <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
           </motion.svg>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={hodInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
-            Welcome to the Department of Computer Engineering at Government
-            Polytechnic, Nagpur! Our department is dedicated to fostering
-            innovation, technical excellence, and problem-solving skills among
-            students. Through a blend of theoretical knowledge and practical
-            exposure, we strive to equip our students with the skills needed to
-            excel in the ever-evolving tech industry.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={hodInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 1 }}
-          >
-            We take pride in our state-of-the-art facilities, experienced
-            faculty, and an industry-relevant curriculum designed to prepare
-            students for real-world challenges. Whether you are a prospective
-            student, a researcher, or an industry professional, we invite you to
-            collaborate with us in shaping the future of technology.
-          </motion.p>
+          <p className="text-gray-300">
+            Welcome to the Department of Computer Engineering at Government Polytechnic, Nagpur! 
+            Our department is dedicated to fostering innovation, technical excellence, and problem-solving skills among students.
+          </p>
         </motion.div>
       </motion.div>
 
-      <motion.div 
+      {/* Faculty Section */}
+      <motion.div
         ref={facultyRef}
         className="mt-20"
         initial={{ opacity: 0, y: 20 }}
         animate={facultyInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl mb-12">Our Faculty</h1>
-        <motion.div 
-          className="flex flex-wrap justify-center gap-10 mb-10"
+        <h1 className="text-4xl font-bold text-center mb-12">Our Faculty</h1>
+        <motion.div
+          className="flex flex-wrap justify-center gap-10"
           variants={containerVariants}
           initial="hidden"
           animate={facultyInView ? "visible" : "hidden"}
@@ -140,13 +125,13 @@ const Faculty = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div 
-                className="w-24 h-24 bg-white rounded-full mb-3"
+              <motion.div
+                className="w-24 h-24 bg-[#0a192f] rounded-full mb-3 border border-white"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               />
               <h2 className="text-xl font-semibold">{faculty.name}</h2>
-              <p className="text-gray-500">{faculty.role}</p>
+              <p className="text-gray-400">{faculty.role}</p>
             </motion.div>
           ))}
         </motion.div>

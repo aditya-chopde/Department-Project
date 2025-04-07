@@ -109,7 +109,7 @@ const AllPosts = () => {
           <motion.div
             key={index}
             variants={itemVariants}
-            className="bg-black rounded-lg shadow-md overflow-hidden my-3 hover:shadow-lg transition-shadow"
+            className="bggradient-to-r from-[#040b14] to-[#031a2f] rounded-lg shadow-md overflow-hidden my-3 hover:shadow-lg transition-shadow"
             whileHover={{ y: -5 }}
           >
             {post.type === "image" && (
